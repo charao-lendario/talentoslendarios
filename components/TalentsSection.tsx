@@ -289,9 +289,9 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
         <section className="relative pt-32 pb-20 px-6 min-h-[90vh] flex items-center justify-center overflow-hidden">
             <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center relative">
 
-                {/* Text Content - Left Side (Card) */}
-                <div className="w-full lg:w-7/12 z-20 relative">
-                    <div className="bg-zinc-950/80 backdrop-blur-xl p-8 md:p-12 border border-white/10 rounded-3xl shadow-2xl space-y-8">
+                {/* Text Content - Left Side (Card) - Now Behind */}
+                <div className="w-full lg:w-7/12 z-10 relative">
+                    <div className="bg-zinc-950/90 backdrop-blur-xl p-8 md:p-12 border border-white/5 rounded-3xl space-y-8 pr-12 lg:pr-32">
                         <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-none text-white drop-shadow-xl">
                             Trabalhe na <br />
                             <span className="text-brand-gold relative inline-block">
@@ -324,14 +324,14 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                     </div>
                 </div>
 
-                {/* Sharp Image - Right Side (Overlapping) */}
-                <div className="w-full lg:w-6/12 h-[500px] md:h-[600px] lg:h-[700px] -mt-12 lg:mt-0 lg:-ml-24 z-10 relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+                {/* Sharp Image - Right Side (Overlapping) - Now On Top */}
+                <div className="w-full lg:w-6/12 h-[500px] md:h-[600px] lg:h-[700px] -mt-12 lg:mt-0 lg:-ml-24 z-20 relative rounded-3xl overflow-hidden shadow-2xl shadow-brand-gold/20 border border-white/20 group hover:scale-[1.02] transition-transform duration-700">
                     <img
                         src="/hero-main.jpg"
                         alt="Academia Lendária Team"
-                        className="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-105"
+                        className="w-full h-full object-cover object-center"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-transparent to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/20 via-transparent to-transparent"></div>
                 </div>
 
             </div>
