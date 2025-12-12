@@ -286,25 +286,25 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
         </header>
 
         {/* HERO / INTRO SECTION */}
-        <section className="relative pt-32 pb-20 px-6 min-h-[90vh] flex items-center overflow-hidden">
-            <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <section className="relative pt-32 pb-20 px-6 min-h-[90vh] flex items-center justify-center overflow-hidden">
+            <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center relative">
 
-                {/* Text Content - Left Side (Overlapping) */}
-                <div className="lg:col-span-7 z-20 space-y-10 relative">
-                    <div className="space-y-6">
-                        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-white drop-shadow-2xl">
+                {/* Text Content - Left Side (Card) */}
+                <div className="w-full lg:w-7/12 z-20 relative">
+                    <div className="bg-zinc-950/80 backdrop-blur-xl p-8 md:p-12 border border-white/10 rounded-3xl shadow-2xl space-y-8">
+                        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-none text-white drop-shadow-xl">
                             Trabalhe na <br />
                             <span className="text-brand-gold relative inline-block">
                                 Academia Lendária
-                                <span className="absolute inset-0 blur-3xl bg-brand-gold/30 -z-10"></span>
+                                <span className="absolute inset-0 blur-3xl bg-brand-gold/20 -z-10"></span>
                             </span>
                         </h1>
 
-                        <div className="space-y-6 text-lg md:text-xl font-serif text-zinc-300 leading-relaxed max-w-2xl bg-zinc-950/40 backdrop-blur-sm p-6 rounded-2xl border border-white/5">
+                        <div className="space-y-6 text-lg font-serif text-zinc-300 leading-relaxed">
                             <p>
                                 Por 200 mil anos fomos reféns da biologia.
                             </p>
-                            <p className="text-white font-sans font-medium text-2xl md:text-3xl tracking-tight">
+                            <p className="text-white font-sans font-medium text-2xl tracking-tight">
                                 Agora, na era da IA, chegou a hora de transcender.
                             </p>
                             <p className="text-base text-zinc-400">
@@ -312,9 +312,9 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                             </p>
                         </div>
 
-                        <div className="pt-4">
-                            <p className="text-2xl font-bold text-white font-sans flex items-center gap-4">
-                                <span className="h-12 w-1 bg-brand-orange block"></span>
+                        <div className="pt-4 border-t border-white/5">
+                            <p className="text-xl font-bold text-white font-sans flex items-center gap-4">
+                                <span className="h-10 w-1 bg-brand-orange block"></span>
                                 <span>
                                     Aqui não entra gente pra “preencher vaga”.<br />
                                     Entra gente pra <span className="text-brand-orange">mudar o jogo</span>.
@@ -324,16 +324,14 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                     </div>
                 </div>
 
-                {/* Sharp Image - Right Side */}
-                <div className="lg:col-span-8 lg:-ml-[20%] lg:col-start-6 z-0 h-[600px] relative rounded-3xl overflow-hidden shadow-2xl shadow-brand-gold/10 border border-white/10 group">
+                {/* Sharp Image - Right Side (Overlapping) */}
+                <div className="w-full lg:w-6/12 h-[500px] md:h-[600px] lg:h-[700px] -mt-12 lg:mt-0 lg:-ml-24 z-10 relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
                     <img
                         src="/hero-main.jpg"
                         alt="Academia Lendária Team"
-                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        className="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-105"
                     />
-                    {/* Subtle gradient only at the bottom/left for text readability mixing */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-transparent to-transparent opacity-80 lg:opacity-100"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-60"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-transparent to-transparent"></div>
                 </div>
 
             </div>
