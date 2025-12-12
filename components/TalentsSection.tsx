@@ -286,49 +286,60 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
         </header>
 
         {/* HERO / INTRO SECTION */}
-        <section className="relative pt-40 pb-32 px-6 flex flex-col items-center justify-center min-h-[80vh] overflow-hidden">
-            {/* Background Image */}
-            <div
-                className="absolute inset-0 z-0 bg-cover bg-center"
-                style={{
-                    backgroundImage: `url('/hero-main.jpg')`,
-                    backgroundPosition: 'center 20%' // Adjust focus if needed
-                }}
-            ></div>
-            {/* Gradient Overlay for Readability */}
-            <div className="absolute inset-0 z-10 bg-gradient-to-b from-zinc-950/90 via-zinc-950/80 to-background"></div>
+        <section className="relative pt-32 pb-20 px-6 min-h-[90vh] flex items-center overflow-hidden">
+            <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-            <div className="relative z-20 max-w-4xl mx-auto text-center space-y-12">
-                <div className="space-y-6">
-                    <h1 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight text-white drop-shadow-xl">
-                        Trabalhe na <span className="text-brand-gold relative inline-block">
-                            Academia Lendária
-                            {/* Subtle Glow behind text */}
-                            <span className="absolute inset-0 blur-2xl bg-brand-gold/20 -z-10"></span>
-                        </span>
-                    </h1>
+                {/* Text Content - Left Side (Overlapping) */}
+                <div className="lg:col-span-7 z-20 space-y-10 relative">
+                    <div className="space-y-6">
+                        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] text-white drop-shadow-2xl">
+                            Trabalhe na <br />
+                            <span className="text-brand-gold relative inline-block">
+                                Academia Lendária
+                                <span className="absolute inset-0 blur-3xl bg-brand-gold/30 -z-10"></span>
+                            </span>
+                        </h1>
 
-                    <div className="space-y-8 text-lg md:text-2xl font-serif text-zinc-300 leading-relaxed max-w-3xl mx-auto drop-shadow-md">
-                        <p>
-                            Por 200 mil anos fomos reféns da biologia.
-                        </p>
-                        <p className="text-white font-sans font-medium text-3xl md:text-4xl tracking-tight">
-                            Agora, na era da IA, chegou a hora de transcender.
-                        </p>
-                        <p className="text-lg md:text-xl">
-                            A Academia Lendária é um ecossistema de educação e inovação em IA generativa aplicada a negócios. Nossa missão é direta: <strong className="text-white">unir e potencializar pessoas lendárias com IA pra construir soluções e negócios que beneficiem a humanidade.</strong> E nossa visão é ambiciosa: ser referência mundial nisso, com startups de impacto real.
-                        </p>
-                        <div className="py-8">
-                            <p className="text-2xl font-bold text-white font-sans">
-                                Aqui não entra gente pra “preencher vaga”.<br />
-                                Entra gente pra <span className="text-brand-orange">mudar o jogo</span>.
+                        <div className="space-y-6 text-lg md:text-xl font-serif text-zinc-300 leading-relaxed max-w-2xl bg-zinc-950/40 backdrop-blur-sm p-6 rounded-2xl border border-white/5">
+                            <p>
+                                Por 200 mil anos fomos reféns da biologia.
+                            </p>
+                            <p className="text-white font-sans font-medium text-2xl md:text-3xl tracking-tight">
+                                Agora, na era da IA, chegou a hora de transcender.
+                            </p>
+                            <p className="text-base text-zinc-400">
+                                A Academia Lendária é um ecossistema de educação e inovação em IA generativa aplicada a negócios. Nossa missão é direta: <strong className="text-white">unir e potencializar pessoas lendárias com IA.</strong>
+                            </p>
+                        </div>
+
+                        <div className="pt-4">
+                            <p className="text-2xl font-bold text-white font-sans flex items-center gap-4">
+                                <span className="h-12 w-1 bg-brand-orange block"></span>
+                                <span>
+                                    Aqui não entra gente pra “preencher vaga”.<br />
+                                    Entra gente pra <span className="text-brand-orange">mudar o jogo</span>.
+                                </span>
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="w-px h-24 bg-gradient-to-b from-brand-gold to-transparent mx-auto opacity-80"></div>
+                {/* Sharp Image - Right Side */}
+                <div className="lg:col-span-8 lg:-ml-[20%] lg:col-start-6 z-0 h-[600px] relative rounded-3xl overflow-hidden shadow-2xl shadow-brand-gold/10 border border-white/10 group">
+                    <img
+                        src="/hero-main.jpg"
+                        alt="Academia Lendária Team"
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    />
+                    {/* Subtle gradient only at the bottom/left for text readability mixing */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-transparent to-transparent opacity-80 lg:opacity-100"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-60"></div>
+                </div>
+
             </div>
+
+            {/* Decorative Background Element */}
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-gold/5 blur-[100px] -z-10 pointer-events-none"></div>
         </section>
 
         {/* QUEM VESTE O MANTO */}
