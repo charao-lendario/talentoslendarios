@@ -1,0 +1,191 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// 1. Enums
+enum UserRole {
+  admin
+  talent
+
+  @@map("user_role")
+}
+
+enum JobStatus {
+  active
+  draft
+  paused
+  closed
+
+  @@map("job_status")
+}
+
+enum CourseLevel {
+  Iniciante
+  Intermediario @map("Intermediário")
+  Avancado      @map("Avançado")
+  Dominio_Total @map("Domínio Total")
+
+  @@map("course_level")
+}
+
+enum ApplicationStatus {
+  applied
+  reviewing
+  interview
+  offer
+  rejected
+  hired
+
+  @@map("application_status")
+}
+
+// 2. Core Tables
+
+// Extends Supabase auth.users
+model Profile {
+  id        String   @id @db.Uuid
+  email     String   @unique
+  fullName  String   @map("full_name")
+  avatarUrl String?  @map("avatar_url")
+  role      UserRole @default(talent)
+  createdAt DateTime @default(now()) @map("created_at") @updatedAt @db.Timestamptz
+
+  // Relations
+  talent      Talent?
+  jobs        Job[] // Jobs created by this admin
+
+  @@map("profiles")
+}
+
+model Talent {
+  id String @id @db.Uuid
+
+  // Personal Data
+  cpf           String? @unique
+  phone         String?
+  linkedinUrl   String? @map("linkedin_url")
+  locationCity  String? @map("location_city")
+  locationState String? @map("location_state")
+
+  // Professional Profile
+  bio         String?
+  hourlyRate  String? @map("hourly_rate")
+
+  // Academy Specifics
+  academyProduct String?      @map("academy_product")
+  courseLevel    CourseLevel? @default(Iniciante) @map("course_level")
+
+  // Skills
+  tags       String[]
+  isVerified Boolean  @default(false) @map("is_verified")
+
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  profile      Profile         @relation(fields: [id], references: [id], onDelete: Cascade)
+  projects     TalentProject[]
+  applications Application[]
+
+  @@map("talents")
+}
+
+model TalentProject {
+  id                String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  talentId          String   @map("talent_id") @db.Uuid
+  title             String
+  description       String?
+  linkUrl           String?  @map("link_url")
+  isMonetaryProject Boolean  @default(false) @map("is_monetary_project")
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // Relations
+  talent Talent @relation(fields: [talentId], references: [id], onDelete: Cascade)
+
+  @@map("talent_projects")
+}
+
+model Job {
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdBy String? @map("created_by") @db.Uuid
+
+  // Header Info
+  title    String
+  type     String @default("Remoto")
+  location String @default("Brasil")
+
+  // Description
+  mission          String
+  responsibilities String
+  successIndicator String @map("success_indicator")
+  okr              String
+
+  // Meta
+  status JobStatus @default(draft)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  author       Profile?      @relation(fields: [createdBy], references: [id])
+  applications Application[]
+
+  @@index([status])
+  @@map("jobs")
+}
+
+// 3. Applications & AI Analysis
+
+model Application {
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  jobId    String @map("job_id") @db.Uuid
+  talentId String @map("talent_id") @db.Uuid
+
+  status      ApplicationStatus @default(applied)
+  coverLetter String?           @map("cover_letter")
+
+  // AI Match Data
+  aiMatchScore  Int?      @map("ai_match_score")
+  aiMatchReason String?   @map("ai_match_reason")
+  aiMatchDate   DateTime? @map("ai_match_date") @db.Timestamptz
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // Relations
+  job         Job          @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  talent      Talent       @relation(fields: [talentId], references: [id], onDelete: Cascade)
+  assessments Assessment[]
+
+  @@unique([jobId, talentId])
+  @@index([jobId])
+  @@index([talentId])
+  @@map("applications")
+}
+
+model Assessment {
+  id            String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  applicationId String @map("application_id") @db.Uuid
+
+  // Cultural Fit AI Analysis
+  culturalFitScore         Int?      @map("cultural_fit_score")
+  culturalAnalysisMarkdown String?   @map("cultural_analysis_markdown")
+  culturalAnalysisDate     DateTime? @map("cultural_analysis_date") @db.Timestamptz
+
+  // Interview Checklist State
+  interviewChecklistData Json? @default("{}") @map("interview_checklist_data")
+
+  // Human Notes
+  recruiterNotes String? @map("recruiter_notes")
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // Relations
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@map("assessments")
+}
