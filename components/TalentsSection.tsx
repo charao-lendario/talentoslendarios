@@ -320,7 +320,7 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
             <div
                 className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                 style={{
-                    backgroundImage: `url('https://drive.google.com/uc?export=view&id=1xozFwWaG0voSvZV6dsvUqE9OPTKU36wn')`
+                    backgroundImage: `url('/team-hero.jpg')`
                 }}
             ></div>
             <div className="absolute inset-0 z-10 bg-black/80"></div>
