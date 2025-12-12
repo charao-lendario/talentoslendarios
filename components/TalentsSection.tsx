@@ -286,32 +286,49 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
         </header>
 
         {/* HERO / INTRO SECTION */}
-        <section className="pt-40 pb-20 px-6 max-w-4xl mx-auto text-center space-y-12">
-            <div className="space-y-6">
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight">
-                    Trabalhe na <span className="text-brand-gold">Academia Lendária</span>
-                </h1>
+        <section className="relative pt-40 pb-32 px-6 flex flex-col items-center justify-center min-h-[80vh] overflow-hidden">
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 z-0 bg-cover bg-center"
+                style={{
+                    backgroundImage: `url('/hero-main.jpg')`,
+                    backgroundPosition: 'center 20%' // Adjust focus if needed
+                }}
+            ></div>
+            {/* Gradient Overlay for Readability */}
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-zinc-950/90 via-zinc-950/80 to-background"></div>
 
-                <div className="space-y-8 text-lg md:text-xl font-serif text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                    <p>
-                        Por 200 mil anos fomos reféns da biologia.
-                    </p>
-                    <p className="text-foreground font-sans font-medium text-2xl">
-                        Agora, na era da IA, chegou a hora de transcender.
-                    </p>
-                    <p>
-                        A Academia Lendária é um ecossistema de educação e inovação em IA generativa aplicada a negócios. Nossa missão é direta: <strong className="text-foreground">unir e potencializar pessoas lendárias com IA pra construir soluções e negócios que beneficiem a humanidade.</strong> E nossa visão é ambiciosa: ser referência mundial nisso, com startups de impacto real.
-                    </p>
-                    <div className="py-8">
-                        <p className="text-2xl font-bold text-foreground font-sans">
-                            Aqui não entra gente pra “preencher vaga”.<br />
-                            Entra gente pra <span className="text-brand-orange">mudar o jogo</span>.
+            <div className="relative z-20 max-w-4xl mx-auto text-center space-y-12">
+                <div className="space-y-6">
+                    <h1 className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight text-white drop-shadow-xl">
+                        Trabalhe na <span className="text-brand-gold relative inline-block">
+                            Academia Lendária
+                            {/* Subtle Glow behind text */}
+                            <span className="absolute inset-0 blur-2xl bg-brand-gold/20 -z-10"></span>
+                        </span>
+                    </h1>
+
+                    <div className="space-y-8 text-lg md:text-2xl font-serif text-zinc-300 leading-relaxed max-w-3xl mx-auto drop-shadow-md">
+                        <p>
+                            Por 200 mil anos fomos reféns da biologia.
                         </p>
+                        <p className="text-white font-sans font-medium text-3xl md:text-4xl tracking-tight">
+                            Agora, na era da IA, chegou a hora de transcender.
+                        </p>
+                        <p className="text-lg md:text-xl">
+                            A Academia Lendária é um ecossistema de educação e inovação em IA generativa aplicada a negócios. Nossa missão é direta: <strong className="text-white">unir e potencializar pessoas lendárias com IA pra construir soluções e negócios que beneficiem a humanidade.</strong> E nossa visão é ambiciosa: ser referência mundial nisso, com startups de impacto real.
+                        </p>
+                        <div className="py-8">
+                            <p className="text-2xl font-bold text-white font-sans">
+                                Aqui não entra gente pra “preencher vaga”.<br />
+                                Entra gente pra <span className="text-brand-orange">mudar o jogo</span>.
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="w-px h-24 bg-gradient-to-b from-brand-gold to-transparent mx-auto opacity-50"></div>
+                <div className="w-px h-24 bg-gradient-to-b from-brand-gold to-transparent mx-auto opacity-80"></div>
+            </div>
         </section>
 
         {/* QUEM VESTE O MANTO */}
