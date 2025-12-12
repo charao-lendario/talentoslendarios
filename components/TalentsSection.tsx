@@ -387,7 +387,7 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                 ))}
             </div>
 
-            <div className="p-8 mt-12 bg-linear-to-r from-zinc-950 to-zinc-900 border border-white/10 rounded-2xl text-center max-w-3xl mx-auto shadow-lg">
+            <div className="p-8 mt-12 bg-gradient-to-r from-zinc-950 to-zinc-900 border border-white/10 rounded-2xl text-center max-w-3xl mx-auto shadow-lg">
                 <p className="text-xl font-serif text-zinc-300">
                     Princípio simples: <strong className="text-brand-gold">aja como um Lendário</strong> — se todo mundo fizesse o que você vai fazer, a Academia ficaria mais forte?
                 </p>
