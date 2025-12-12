@@ -346,35 +346,49 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
         </section>
 
         {/* 10 MANDAMENTOS */}
-        <section id="mandamentos" className="py-24 px-6 max-w-5xl mx-auto space-y-16">
+        <section id="mandamentos" className="py-24 px-6 max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold font-sans">Como trabalhamos</h2>
-                <p className="font-serif text-xl text-muted-foreground">
+                <h2 className="text-3xl md:text-5xl font-bold font-sans">Como trabalhamos</h2>
+                <p className="font-serif text-xl text-muted-foreground max-w-2xl mx-auto">
                     Nada de regra pra tudo. A gente segue os <strong className="text-brand-gold">10 Mandamentos Lendários</strong>:
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12 font-sans">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {[
-                    "1. Pessoas acima de processos.",
-                    "2. Contexto, não controle.",
-                    "3. Liberdade com responsabilidade.",
-                    "4. Excelência sem desculpas.",
-                    "5. Inovação constante.",
-                    "6. Transparência radical.",
-                    "7. Impacto transformador.",
-                    "8. Adaptabilidade exponencial.",
-                    "9. Ética inabalável.",
-                    "10. Propósito maior."
+                    "Pessoas acima de processos",
+                    "Contexto, não controle",
+                    "Liberdade com responsabilidade",
+                    "Excelência sem desculpas",
+                    "Inovação constante",
+                    "Transparência radical",
+                    "Impacto transformador",
+                    "Adaptabilidade exponencial",
+                    "Ética inabalável",
+                    "Propósito maior"
                 ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 text-lg text-zinc-300 border-b border-white/5 pb-4">
-                        {item}
+                    <div key={i} className="group relative p-8 h-64 bg-zinc-900/40 border border-white/5 rounded-2xl overflow-hidden hover:border-brand-gold/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-gold/10 flex flex-col justify-between">
+                        {/* Background Gradient on Hover */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/0 to-brand-gold/0 group-hover:from-brand-gold/5 group-hover:to-transparent transition-all duration-500"></div>
+
+                        {/* Number */}
+                        <span className="text-6xl font-serif font-bold text-white/5 group-hover:text-brand-gold/20 transition-colors duration-500 select-none">
+                            {i + 1}
+                        </span>
+
+                        {/* Text */}
+                        <div className="relative z-10">
+                            <h3 className="text-xl font-bold font-sans text-zinc-100 group-hover:text-brand-gold transition-colors duration-300 leading-tight">
+                                {item}
+                            </h3>
+                            <div className="w-8 h-1 bg-brand-orange mt-4 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
+                        </div>
                     </div>
                 ))}
             </div>
 
-            <div className="p-8 mt-12 bg-brand-gold/5 border border-brand-gold/20 rounded-2xl text-center">
-                <p className="text-xl font-serif text-foreground/80">
+            <div className="p-8 mt-12 bg-linear-to-r from-zinc-950 to-zinc-900 border border-white/10 rounded-2xl text-center max-w-3xl mx-auto shadow-lg">
+                <p className="text-xl font-serif text-zinc-300">
                     Princípio simples: <strong className="text-brand-gold">aja como um Lendário</strong> — se todo mundo fizesse o que você vai fazer, a Academia ficaria mais forte?
                 </p>
             </div>
