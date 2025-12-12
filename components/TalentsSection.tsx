@@ -315,21 +315,30 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
         </section>
 
         {/* QUEM VESTE O MANTO */}
-        <section id="manto" className="py-20 px-6 bg-zinc-900/30 border-y border-white/5">
-            <div className="max-w-4xl mx-auto space-y-12 text-center md:text-left">
-                <h2 className="text-3xl md:text-4xl font-bold font-sans flex flex-col md:flex-row items-center gap-3 justify-center md:justify-start">
+        <section id="manto" className="relative py-24 px-6 border-y border-white/5 overflow-hidden group">
+            {/* Background Image & Overlay */}
+            <div
+                className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                style={{
+                    backgroundImage: `url('https://drive.google.com/uc?export=view&id=1xozFwWaG0voSvZV6dsvUqE9OPTKU36wn')`
+                }}
+            ></div>
+            <div className="absolute inset-0 z-10 bg-black/80"></div>
+
+            <div className="relative z-20 max-w-4xl mx-auto space-y-12 text-center md:text-left">
+                <h2 className="text-3xl md:text-4xl font-bold font-sans flex flex-col md:flex-row items-center gap-3 justify-center md:justify-start text-white">
                     <Symbol name="star" className="text-brand-gold h-8 w-8" />
                     Quem veste o manto de Lendário
                 </h2>
 
-                <div className="space-y-8 text-lg font-serif text-muted-foreground leading-loose">
+                <div className="space-y-8 text-lg font-serif text-zinc-300 leading-loose">
                     <p>
                         A gente busca quem eleva o time inteiro.
                     </p>
                     <p>
                         Lendário de verdade tem <strong className="text-brand-gold">curiosidade insaciável</strong>, resiliência pra jogo duro, altruísmo de time, visão com bom senso, sinceridade radical, criatividade disruptiva, coragem pra desafiar o status quo e autonomia responsável.
                     </p>
-                    <p className="text-foreground font-sans font-medium italic">
+                    <p className="text-white font-sans font-medium italic">
                         Se você se vê nisso, já entendeu o espírito.
                     </p>
                 </div>
