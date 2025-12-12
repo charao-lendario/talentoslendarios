@@ -268,202 +268,160 @@ Candidato exala os valores de "AI First" e "Excelência". Pontuação alta nos p
 // --- SUB-COMPONENTS ---
 
 const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> = ({ onApply, onViewTalents }) => (
-    <div className="space-y-32 animate-fade-in pb-20 bg-background min-h-screen">
+    <div className="space-y-0 animate-fade-in pb-20 bg-background min-h-screen font-sans text-foreground">
 
-        {/* Hero Section */}
-        <div className="-mt-12 -mx-4 md:-mx-8 lg:-mx-12 xl:-mx-20">
-            <MinimalistHero
-                logoText="Lendár[IA]"
-                navLinks={[
-                    { label: 'MANIFESTO', href: '#manifesto' },
-                    { label: 'CULTURA', href: '#culture' },
-                    { label: 'TALENTOS', href: '#talentos', onClick: (e) => { e.preventDefault(); onViewTalents(); } },
-                ]}
-                mainText="A elite da Inteligência Artificial aplicada a negócios."
-                subText="Conectamos empresas visionárias aos melhores engenheiros de prompt, arquitetos de IA e estrategistas digitais do mercado."
-                readMoreLink="#"
-                ctaLabel="BUSCAR TALENTOS"
-                onCtaClick={onViewTalents}
-                secondaryCtaLabel="SOU UM TALENTO"
-                onSecondaryCtaClick={onApply}
-                imageSrc="https://drive.google.com/uc?export=view&id=1xozFwWaG0voSvZV6dsvUqE9OPTKU36wn"
-                imageAlt="Equipe Lendária"
-                overlayText={{
-                    part1: 'Fututo',
-                    part2: 'Agora.',
-                }}
-                socialLinks={[
-                    { icon: Instagram, href: '#' },
-                    { icon: Linkedin, href: '#' },
-                    { icon: Globe, href: '#' },
-                ]}
-                locationText="Global / Remote"
-                className="rounded-b-[3rem] shadow-2xl shadow-black/50 border-b border-brand-gold/10"
-            />
-        </div>
+        {/* Minimalist Header */}
+        <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-background/80 backdrop-blur-md border-b border-white/5">
+            <div className="text-xl font-bold tracking-tight text-foreground">
+                Lendár<span className="text-brand-gold">[IA]</span>
+            </div>
+            <nav className="hidden md:flex gap-8 text-sm font-medium tracking-wide">
+                <a href="#manto" className="hover:text-brand-gold transition-colors">QUEM VESTE O MANTO</a>
+                <a href="#mandamentos" className="hover:text-brand-gold transition-colors">10 MANDAMENTOS</a>
+                <a href="#beneficios" className="hover:text-brand-gold transition-colors">BENEFÍCIOS</a>
+            </nav>
+            <Button variant="ghost" className="text-xs text-muted-foreground hover:text-brand-gold" onClick={onViewTalents}>
+                AREA DO RECRUTADOR
+            </Button>
+        </header>
 
-        {/* Featured Talents Section - "A Elite" */}
-        <section id="talentos" className="max-w-7xl mx-auto px-6 space-y-16">
-            <div className="text-center space-y-6">
-                <Badge variant="outline" className="uppercase tracking-[0.2em] text-[10px] border-brand-gold/30 text-brand-gold px-4 py-1">Banco de Talentos</Badge>
-                <h3 className="text-4xl md:text-6xl font-sans font-bold text-foreground">
-                    A Elite.
-                </h3>
-                <p className="text-muted-foreground font-serif text-xl max-w-2xl mx-auto leading-relaxed">
-                    Profissionais validados pela metodologia da Academia Lendária.
-                    <span className="block text-brand-orange mt-2 font-sans font-medium text-sm tracking-wide">PRONTOS PARA GERAR IMPACTO</span>
+        {/* HERO / INTRO SECTION */}
+        <section className="pt-40 pb-20 px-6 max-w-4xl mx-auto text-center space-y-12">
+            <div className="space-y-6">
+                <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight">
+                    Trabalhe na <span className="text-brand-gold">Academia Lendária</span>
+                </h1>
+
+                <div className="space-y-8 text-lg md:text-xl font-serif text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                    <p>
+                        Por 200 mil anos fomos reféns da biologia.
+                    </p>
+                    <p className="text-foreground font-sans font-medium text-2xl">
+                        Agora, na era da IA, chegou a hora de transcender.
+                    </p>
+                    <p>
+                        A Academia Lendária é um ecossistema de educação e inovação em IA generativa aplicada a negócios. Nossa missão é direta: <strong className="text-foreground">unir e potencializar pessoas lendárias com IA pra construir soluções e negócios que beneficiem a humanidade.</strong> E nossa visão é ambiciosa: ser referência mundial nisso, com startups de impacto real.
+                    </p>
+                    <div className="py-8">
+                        <p className="text-2xl font-bold text-foreground font-sans">
+                            Aqui não entra gente pra “preencher vaga”.<br />
+                            Entra gente pra <span className="text-brand-orange">mudar o jogo</span>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="w-px h-24 bg-gradient-to-b from-brand-gold to-transparent mx-auto opacity-50"></div>
+        </section>
+
+        {/* QUEM VESTE O MANTO */}
+        <section id="manto" className="py-20 px-6 bg-zinc-900/30 border-y border-white/5">
+            <div className="max-w-4xl mx-auto space-y-12 text-center md:text-left">
+                <h2 className="text-3xl md:text-4xl font-bold font-sans flex flex-col md:flex-row items-center gap-3 justify-center md:justify-start">
+                    <Symbol name="star" className="text-brand-gold h-8 w-8" />
+                    Quem veste o manto de Lendário
+                </h2>
+
+                <div className="space-y-8 text-lg font-serif text-muted-foreground leading-loose">
+                    <p>
+                        A gente busca quem eleva o time inteiro.
+                    </p>
+                    <p>
+                        Lendário de verdade tem <strong className="text-brand-gold">curiosidade insaciável</strong>, resiliência pra jogo duro, altruísmo de time, visão com bom senso, sinceridade radical, criatividade disruptiva, coragem pra desafiar o status quo e autonomia responsável.
+                    </p>
+                    <p className="text-foreground font-sans font-medium italic">
+                        Se você se vê nisso, já entendeu o espírito.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        {/* 10 MANDAMENTOS */}
+        <section id="mandamentos" className="py-24 px-6 max-w-5xl mx-auto space-y-16">
+            <div className="text-center space-y-4">
+                <h2 className="text-3xl md:text-4xl font-bold font-sans">Como trabalhamos</h2>
+                <p className="font-serif text-xl text-muted-foreground">
+                    Nada de regra pra tudo. A gente segue os <strong className="text-brand-gold">10 Mandamentos Lendários</strong>:
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {MOCK_TALENTS.slice(0, 3).map((talent) => (
-                    <TalentCard
-                        key={talent.id}
-                        name={talent.name}
-                        role={talent.role}
-                        skills={talent.tags}
-                        avatarUrl={talent.avatar}
-                        seniority={talent.seniority}
-                        onViewProfile={onViewTalents}
-                        className="border-white/5 hover:border-brand-gold/30 bg-zinc-900/50 backdrop-blur-xl"
-                    />
-                ))}
-            </div>
-
-            <div className="flex justify-center pt-8">
-                <Button
-                    variant="outline"
-                    size="lg"
-                    className="rounded-full px-12 py-6 border-brand-gold/20 text-brand-gold hover:bg-brand-gold hover:text-background transition-all duration-300"
-                    onClick={onViewTalents}
-                >
-                    ACESSAR BANCO COMPLETO <Icon name="arrow-right" className="ml-3" />
-                </Button>
-            </div>
-        </section>
-
-        {/* Mission Statement - Minimalist Typography */}
-        <section id="manifesto" className="max-w-5xl mx-auto px-6 py-20 text-center space-y-12">
-            <div className="w-px h-24 bg-gradient-to-b from-transparent via-brand-gold to-transparent mx-auto"></div>
-            <p className="text-3xl md:text-5xl font-sans font-bold text-foreground leading-tight tracking-tight">
-                "Não formamos apenas técnicos.<br />
-                Formamos <span className="text-brand-gold">Líderes de IA</span>."
-            </p>
-            <p className="text-lg md:text-xl font-serif text-muted-foreground/80 max-w-3xl mx-auto leading-loose">
-                A Academia Lendária é um ecossistema de educação e inovação em IA generativa aplicada a negócios. Nossa missão é direta: <strong className="text-foreground">unir e potencializar pessoas lendárias com IA pra construir soluções e negócios que beneficiem a humanidade.</strong>
-                <br /><br />
-                Aqui não entra gente pra “preencher vaga”. Entra gente pra <span className="text-brand-orange">mudar o jogo</span>.
-            </p>
-        </section>
-
-        {/* DNA Section - Glassmorphism & Gold */}
-        <section id="culture" className="max-w-7xl mx-auto px-4">
-            <div className="relative rounded-[3rem] overflow-hidden min-h-[600px] border border-brand-gold/10 bg-zinc-950 flex flex-col md:flex-row group transition-all duration-700 hover:border-brand-gold/20">
-
-                {/* Background & Overlay */}
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-[0.15] mix-blend-luminosity group-hover:opacity-[0.2] transition-opacity duration-700"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
-
-                <div className="relative z-20 w-full md:w-2/3 p-12 md:p-24 flex flex-col justify-center space-y-10">
-                    <div>
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="h-px w-12 bg-brand-orange"></span>
-                            <span className="text-brand-orange font-mono text-sm tracking-widest uppercase">Quem Veste o Manto</span>
-                        </div>
-                        <h3 className="text-5xl md:text-7xl font-sans font-bold text-white tracking-tighter">
-                            DNA <span className="text-brand-gold">Lendário</span>
-                        </h3>
-                    </div>
-
-                    <p className="font-serif text-xl md:text-2xl text-zinc-300 leading-relaxed max-w-2xl">
-                        A gente busca quem eleva o time inteiro. Lendário de verdade tem <span className="text-white decoration-brand-gold/50 underline decoration-1 underline-offset-4">curiosidade insaciável</span>, resiliência pra jogo duro e altruísmo de time.
-                    </p>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 pt-8 border-t border-white/10">
-                        {[
-                            "Curiosidade Insaciável", "Resiliência", "Altruísmo", "Visão com Bom Senso",
-                            "Sinceridade Radical", "Criatividade Disruptiva", "Coragem", "Autonomia Responsável"
-                        ].map((trait, i) => (
-                            <div key={i} className="flex items-center gap-4 text-zinc-400 group/item">
-                                <Symbol name="star" className="text-brand-gold/50 group-hover/item:text-brand-gold transition-colors text-xs" />
-                                <span className="font-sans font-medium text-sm tracking-wide text-zinc-300 group-hover/item:text-white transition-colors">{trait}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {/* 10 Commandments - Masonry / Grid */}
-        <section className="max-w-7xl mx-auto px-6 space-y-16">
-            <div className="text-center space-y-6">
-                <h3 className="text-3xl md:text-4xl font-sans font-bold">10 Mandamentos</h3>
-                <p className="text-muted-foreground font-serif text-lg">Nossa constituição.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12 font-sans">
                 {[
-                    "Pessoas acima de processos", "Contexto, não controle", "Liberdade com responsabilidade",
-                    "Excelência sem desculpas", "Inovação constante", "Transparência radical",
-                    "Impacto transformador", "Adaptabilidade exponencial", "Ética inabalável", "Propósito maior"
-                ].map((mandamento, i) => (
-                    <div key={i} className="p-8 bg-zinc-900/30 border border-white/5 rounded-2xl hover:border-brand-gold/30 hover:bg-zinc-900/50 transition-all duration-300 flex flex-col justify-between h-40 group cursor-default">
-                        <span className="text-5xl font-bold text-white/5 group-hover:text-brand-gold/10 transition-colors font-serif">{i + 1}</span>
-                        <span className="font-sans font-medium text-sm text-zinc-300 group-hover:text-white">{mandamento}</span>
-                    </div>
-                ))}
-            </div>
-
-            <div className="flex justify-center">
-                <div className="p-1 px-8 py-4 rounded-full border border-dashed border-white/10 bg-white/5 text-sm text-muted-foreground font-serif italic">
-                    "Se todo mundo fizesse o que você vai fazer, a Academia ficaria mais forte?"
-                </div>
-            </div>
-        </section>
-
-        {/* Benefits - Icons & Gold */}
-        <section className="max-w-6xl mx-auto px-6 space-y-16 py-10">
-            <h3 className="text-3xl font-sans font-bold text-center">O que você encontra aqui</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {[
-                    { icon: 'laptop', title: 'Remote First', text: 'Atuação 100% remota, com a Mansão Lendária em Floripa pra visitar.' },
-                    { icon: 'rocket', title: 'Ferramentas AI', text: 'Acesso premium/pro às melhores ferramentas de IA do mercado.' },
-                    { icon: 'gift', title: 'Benefícios Reais', text: 'Descanso programado (8 meses), Day off, Cursos vitalícios.' }
+                    "1. Pessoas acima de processos.",
+                    "2. Contexto, não controle.",
+                    "3. Liberdade com responsabilidade.",
+                    "4. Excelência sem desculpas.",
+                    "5. Inovação constante.",
+                    "6. Transparência radical.",
+                    "7. Impacto transformador.",
+                    "8. Adaptabilidade exponencial.",
+                    "9. Ética inabalável.",
+                    "10. Propósito maior."
                 ].map((item, i) => (
-                    <Card key={i} className="bg-transparent border-none shadow-none text-center">
-                        <CardContent className="pt-6 flex flex-col items-center gap-4">
-                            <div className="w-16 h-16 rounded-full bg-brand-gold/10 flex items-center justify-center mb-2">
-                                <Icon name={item.icon as any} className="text-brand-gold w-8 h-8" />
-                            </div>
-                            <h4 className="text-xl font-bold font-sans">{item.title}</h4>
-                            <p className="text-sm text-muted-foreground font-serif leading-relaxed max-w-xs mx-auto">
-                                {item.text}
-                            </p>
-                        </CardContent>
-                    </Card>
+                    <div key={i} className="flex items-center gap-4 text-lg text-zinc-300 border-b border-white/5 pb-4">
+                        {item}
+                    </div>
                 ))}
+            </div>
+
+            <div className="p-8 mt-12 bg-brand-gold/5 border border-brand-gold/20 rounded-2xl text-center">
+                <p className="text-xl font-serif text-foreground/80">
+                    Princípio simples: <strong className="text-brand-gold">aja como um Lendário</strong> — se todo mundo fizesse o que você vai fazer, a Academia ficaria mais forte?
+                </p>
             </div>
         </section>
 
-        {/* Footer CTA - High Impact */}
-        <section className="text-center py-32 space-y-10 border-t border-white/5 bg-gradient-to-b from-transparent to-brand-gold/5">
+        {/* BENEFÍCIOS */}
+        <section id="beneficios" className="py-20 px-6 bg-zinc-950/50">
+            <div className="max-w-4xl mx-auto space-y-12">
+                <h2 className="text-3xl md:text-4xl font-bold font-sans text-center">O que você encontra aqui</h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {[
+                        { text: "Atuação 100% remota, com a Mansão Lendária em Floripa pra visitar ou trabalhar colado no time quando quiser.", highlight: true },
+                        { text: "Acesso premium/pro às melhores ferramentas de IA.", highlight: true },
+                        { text: "Trabalho lado a lado com professores da Academia e um time que vive o dia a dia pra melhorar a empresa pros alunos e pra equipe.", highlight: true },
+                        { text: "Descanso Programado depois de 8 meses de contrato.", highlight: true },
+                        { text: "Day off no aniversário.", highlight: true },
+                        { text: "Acesso gratuito aos nossos eventos.", highlight: true },
+                        { text: "Gamificações interativas entre a equipe.", highlight: true },
+                        { text: "Acesso vitalício à Formação Lendária e à Comunidade.", highlight: true },
+                        { text: "Kit aniver.", highlight: true },
+                        { text: "Experiências Lendárias ao longo da jornada.", highlight: true }
+                    ].map((item, i) => (
+                        <div key={i} className="flex gap-4 items-start">
+                            <div className="mt-1.5 h-2 w-2 rounded-full bg-brand-orange shrink-0"></div>
+                            <p className="text-zinc-300 font-serif leading-relaxed">
+                                {item.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').split(/<strong>(.*?)<\/strong>/).map((part, index) =>
+                                    index % 2 === 1 ? <strong key={index} className="text-foreground font-sans">{part}</strong> : part
+                                )}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        {/* FOOTER CTA */}
+        <section className="py-32 px-6 text-center space-y-10 bg-gradient-to-b from-transparent to-brand-gold/5">
             <p className="text-2xl md:text-3xl font-serif max-w-3xl mx-auto text-muted-foreground">
-                Se você quer fazer parte de uma comunidade que <strong className="text-foreground">constrói</strong> o futuro, é aqui.
+                Se você quer fazer parte de uma comunidade que não assiste o futuro — <strong className="text-foreground">constrói</strong> — então é aqui.
             </p>
             <h2 className="text-5xl md:text-7xl font-sans font-bold tracking-tighter text-foreground">
                 Movimento <span className="text-brand-gold">Lendário</span>.
+                <span className="block text-2xl md:text-3xl mt-4 font-normal text-muted-foreground tracking-normal font-serif">Construindo o infinito, hoje.</span>
             </h2>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
+            <div className="pt-12">
                 <Button
                     size="lg"
-                    className="h-16 px-12 rounded-full text-lg font-bold bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg shadow-brand-orange/20 hover:shadow-brand-orange/40 hover:-translate-y-1 transition-all duration-300"
+                    className="h-16 px-12 rounded-full text-lg font-bold bg-brand-orange hover:bg-brand-orange-dark text-white shadow-xl shadow-brand-orange/20 hover:scale-105 transition-all duration-300"
                     onClick={onApply}
                 >
-                    ENTRAR PARA O BANCO
+                    QUERO VESTIR O MANTO
                 </Button>
             </div>
-            <p className="text-xs text-muted-foreground/50 uppercase tracking-widest pt-12">Copyright © 2025 Academia Lendária</p>
         </section>
+
     </div>
 );
 
