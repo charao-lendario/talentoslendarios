@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { Icon } from './ui/icon';
 import { Symbol } from './ui/symbol';
 import { MinimalistHero } from './ui/minimalist-hero';
-import { Instagram, Linkedin, Globe } from 'lucide-react';
+import { Instagram, Linkedin, Globe, Laptop, Zap, Users2, Palmtree, Cake, Ticket, Gamepad2, GraduationCap, Gift, Rocket } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from './ui/card';
 import { Input } from './ui/input';
@@ -399,29 +399,64 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
         </section>
 
         {/* BENEFÍCIOS */}
-        <section id="beneficios" className="py-20 px-6 bg-zinc-950/50">
-            <div className="max-w-4xl mx-auto space-y-12">
-                <h2 className="text-3xl md:text-4xl font-bold font-sans text-center">O que você encontra aqui</h2>
+        <section id="beneficios" className="py-24 px-6 bg-zinc-950/50">
+            <div className="max-w-7xl mx-auto space-y-16">
+                <div className="text-center space-y-4">
+                    <h2 className="text-3xl md:text-5xl font-bold font-sans">O que você encontra aqui</h2>
+                    <p className="font-serif text-xl text-zinc-400 max-w-2xl mx-auto">
+                        Mais do que benefícios, entregamos um estilo de vida <span className="text-brand-gold">Lendário</span>.
+                    </p>
+                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                     {[
-                        { text: "Atuação 100% remota, com a Mansão Lendária em Floripa pra visitar ou trabalhar colado no time quando quiser.", highlight: true },
-                        { text: "Acesso premium/pro às melhores ferramentas de IA.", highlight: true },
-                        { text: "Trabalho lado a lado com professores da Academia e um time que vive o dia a dia pra melhorar a empresa pros alunos e pra equipe.", highlight: true },
-                        { text: "Descanso Programado depois de 8 meses de contrato.", highlight: true },
-                        { text: "Day off no aniversário.", highlight: true },
-                        { text: "Acesso gratuito aos nossos eventos.", highlight: true },
-                        { text: "Gamificações interativas entre a equipe.", highlight: true },
-                        { text: "Acesso vitalício à Formação Lendária e à Comunidade.", highlight: true },
-                        { text: "Kit aniver.", highlight: true },
-                        { text: "Experiências Lendárias ao longo da jornada.", highlight: true }
+                        {
+                            icon: Laptop,
+                            text: "Atuação 100% remota, com a Mansão Lendária em Floripa pra visitar."
+                        },
+                        {
+                            icon: Zap,
+                            text: "Acesso premium/pro às melhores ferramentas de IA."
+                        },
+                        {
+                            icon: Users2,
+                            text: "Trabalho lado a lado com professores e um time que vive o dia a dia."
+                        },
+                        {
+                            icon: Palmtree,
+                            text: "Descanso Programado depois de 8 meses de contrato."
+                        },
+                        {
+                            icon: Cake,
+                            text: "Day off no aniversário."
+                        },
+                        {
+                            icon: Ticket,
+                            text: "Acesso gratuito aos nossos eventos."
+                        },
+                        {
+                            icon: Gamepad2,
+                            text: "Gamificações interativas entre a equipe."
+                        },
+                        {
+                            icon: GraduationCap,
+                            text: "Acesso vitalício à Formação Lendária e à Comunidade."
+                        },
+                        {
+                            icon: Gift,
+                            text: "Kit aniver."
+                        },
+                        {
+                            icon: Rocket,
+                            text: "Experiências Lendárias ao longo da jornada."
+                        }
                     ].map((item, i) => (
-                        <div key={i} className="flex gap-4 items-start">
-                            <div className="mt-1.5 h-2 w-2 rounded-full bg-brand-orange shrink-0"></div>
-                            <p className="text-zinc-300 font-serif leading-relaxed">
-                                {item.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').split(/<strong>(.*?)<\/strong>/).map((part, index) =>
-                                    index % 2 === 1 ? <strong key={index} className="text-foreground font-sans">{part}</strong> : part
-                                )}
+                        <div key={i} className="group p-6 bg-zinc-900/40 border border-white/5 rounded-2xl flex flex-col items-center text-center gap-4 transition-all duration-300 hover:bg-white/5 hover:-translate-y-1 hover:border-brand-gold/20 hover:shadow-xl hover:shadow-brand-gold/5">
+                            <div className="p-4 rounded-full bg-brand-gold/10 text-brand-gold group-hover:scale-110 group-hover:bg-brand-gold group-hover:text-black transition-all duration-300">
+                                <item.icon className="h-6 w-6" strokeWidth={1.5} />
+                            </div>
+                            <p className="text-sm md:text-base font-medium text-zinc-300 group-hover:text-white transition-colors">
+                                {item.text}
                             </p>
                         </div>
                     ))}
