@@ -1,26 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Safe environment variable retrieval
-const getEnvVar = (viteKey: string, nextKey: string) => {
-    // 1. Try Vite import.meta.env
-    try {
-        if (import.meta && import.meta.env && import.meta.env[viteKey]) {
-            return import.meta.env[viteKey];
-        }
-    } catch (e) { /* ignore */ }
-
-    // 2. Try Node process.env (safely)
-    try {
-        if (typeof process !== 'undefined' && process.env && process.env[nextKey]) {
-            return process.env[nextKey];
-        }
-    } catch (e) { /* ignore */ }
-
-    return "";
-};
-
-const supabaseUrl = getEnvVar('VITE_SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_URL');
-const supabaseAnonKey = getEnvVar('VITE_SUPABASE_ANON_KEY', 'NEXT_PUBLIC_SUPABASE_ANON_KEY');
+// NOTE: Vite replaces these statically at build time. 
+// Do NOT use dynamic access like env[key] or it will fail in production.
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || (typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_SUPABASE_URL : "") || "";
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || (typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY : "") || "";
 
 let supabaseInstance;
 
