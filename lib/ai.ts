@@ -1,18 +1,21 @@
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import OpenAI from "openai";
 
-// Initialize Gemini
-// NOTE: Ideally this should be done via a backend proxy to protect the key.
-// For this client-side demo, we use the VITE_ env var directly.
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
-const genAI = new GoogleGenerativeAI(API_KEY);
+const API_KEY = import.meta.env.VITE_OPENAI_API_KEY || "";
+
+// Initialize OpenAI
+// NOTE: Client-side usage exposes the key. Use a backend proxy in production.
+const openai = new OpenAI({
+    apiKey: API_KEY,
+    dangerouslyAllowBrowser: true // Required for client-side usage
+});
+
+const MODEL_NAME = "gpt-4o-mini"; // Mapping "GPT 4.1 mini" request to "gpt-4o-mini"
 
 export const analyzeCulturalFit = async (talentName: string, bio: string, transcript: string) => {
     if (!API_KEY) {
-        throw new Error("VITE_GEMINI_API_KEY não configurada.");
+        throw new Error("VITE_OPENAI_API_KEY não configurada.");
     }
-
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `
     Você é um Expert em Recrutamento da 'Academia Lendária'.
@@ -64,8 +67,11 @@ export const analyzeCulturalFit = async (talentName: string, bio: string, transc
     `;
 
     try {
-        const result = await model.generateContent(prompt);
-        return result.response.text();
+        const response = await openai.chat.completions.create({
+            model: MODEL_NAME,
+            messages: [{ role: "user", content: prompt }],
+        });
+        return response.choices[0].message.content || "";
     } catch (error) {
         console.error("Erro na análise cultural:", error);
         throw error;
@@ -74,10 +80,8 @@ export const analyzeCulturalFit = async (talentName: string, bio: string, transc
 
 export const analyzeJobMatch = async (talent: any, jobs: any[]) => {
     if (!API_KEY) {
-        throw new Error("VITE_GEMINI_API_KEY não configurada.");
+        throw new Error("VITE_OPENAI_API_KEY não configurada.");
     }
-
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }); // Using flash for speed
 
     const jobsData = JSON.stringify(jobs.map(j => ({ id: j.id, title: j.title, mission: j.mission, skills: j.responsibilities })));
     const talentData = JSON.stringify({
@@ -108,8 +112,12 @@ export const analyzeJobMatch = async (talent: any, jobs: any[]) => {
     `;
 
     try {
-        const result = await model.generateContent(prompt);
-        const text = result.response.text();
+        const response = await openai.chat.completions.create({
+            model: MODEL_NAME,
+            messages: [{ role: "user", content: prompt }],
+        });
+
+        const text = response.choices[0].message.content || "[]";
         // Clean markdown if present
         const jsonString = text.replace(/```json/g, '').replace(/```/g, '').trim();
         return JSON.parse(jsonString);
