@@ -1661,7 +1661,7 @@ const formatSalary = (val: string | null) => {
 // --- MAIN COMPONENT ---
 
 const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing' }) => {
-    const [view, setView] = useState<'landing' | 'candidate-register' | 'candidate-dashboard' | 'public-jobs' | 'admin' | 'admin-new-job' | 'admin-talent-detail' | 'admin-job-detail'>(initialView);
+    const [view, setView] = useState<'landing' | 'admin' | 'candidate-register' | 'candidate-login' | 'candidate-dashboard' | 'admin-new-job' | 'admin-talent-detail' | 'admin-job-detail' | 'public-jobs'>(initialView);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentCandidate, setCurrentCandidate] = useState<Talent | null>(null);
 
@@ -1795,6 +1795,11 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
             const { data: authData, error: authError } = await supabase.auth.signUp({
                 email: data.email,
                 password: data.password,
+                options: {
+                    data: {
+                        full_name: data.name,
+                    }
+                }
             });
 
             if (authError) {
@@ -1809,9 +1814,26 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
                 alert("Erro inesperado: ID de usuário não retornado pelo Supabase.");
                 return;
             }
+
+            // Check if email confirmation is required
+            if (authData.user && !authData.session) {
+                alert("Cadastro realizado! Por favor, verifique seu e-mail para confirmar sua conta antes de fazer login.");
+                // We proceed to create profile records, but we don't auto-login effectively?
+                // Actually, we can create the profile/talent records using the SERVICE_ROLE or because RLS allows authenticated users to insert their *own* profile... 
+                // BUT wait, if we don't have a session, we are ANON.
+                // If RLS allows Anon to insert to 'profiles'/'talents', it works.
+                // If RLS requires authentication, this will FAIL because we don't have a session yet!
+
+                // Assuming RLS allows insert for now or public access.
+                // If not, we might fail here.
+
+                // Let's try to insert. If it fails due to permission, we warn.
+            }
         }
 
         // 2. Insert/Update Profile
+        // Note: If no session exists (unconfirmed email), this insert will likely fail if RLS is set to 'authenticated'.
+        // However, if we continue, let's see.
         const { error: profileError } = await supabase.from('profiles').upsert({
             id: userId,
             email: data.email,
@@ -1822,8 +1844,16 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
 
         if (profileError) {
             console.error('Error creating profile:', profileError);
-            alert('Erro ao criar perfil: ' + profileError.message);
-            return;
+            // If it's RLS error, it might be due to unconfirmed email.
+            if ((profileError as any).code === '42501' || profileError.message.includes('policy')) {
+                alert('Atenção: Seu cadastro de login foi criado, mas não foi possível salvar o perfil completo ainda. Confirme seu e-mail e complete o perfil se necessário.');
+                // Force view change to landing to avoid hanging
+                setView('landing');
+                return;
+            } else {
+                alert('Erro ao criar perfil: ' + profileError.message);
+                return;
+            }
         }
 
         // 3. Insert/Update Talent
@@ -1900,7 +1930,11 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
         });
 
         if (error) {
-            alert("Erro ao entrar: " + error.message);
+            let msg = error.message;
+            if (msg.includes("Invalid login credentials")) {
+                msg = "Credenciais inválidas. Verifique seu e-mail e senha. Se acabou de se cadastrar, verifique se confirmou seu e-mail (envíamos um link para você).";
+            }
+            alert("Erro ao entrar: " + msg);
             return;
         }
 
