@@ -269,7 +269,7 @@ Candidato exala os valores de "AI First" e "Excelência". Pontuação alta nos p
 
 // --- SUB-COMPONENTS ---
 
-const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> = ({ onApply, onViewTalents }) => (
+const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void, onViewJobs: () => void }> = ({ onApply, onViewTalents, onViewJobs }) => (
     <div className="space-y-0 animate-fade-in pb-20 bg-background min-h-screen font-sans text-foreground overflow-x-hidden">
 
         {/* Responsive Container Wrapper for Large Screens */}
@@ -484,13 +484,21 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                     Movimento <span className="text-brand-gold">Lendário</span>.
                     <span className="block text-2xl md:text-3xl mt-4 font-normal text-muted-foreground tracking-normal font-serif">Construindo o infinito, hoje.</span>
                 </h2>
-                <div className="pt-12">
+                <div className="pt-12 flex flex-col md:flex-row gap-6 justify-center">
                     <Button
                         size="lg"
                         className="h-16 px-12 rounded-full text-lg font-bold bg-brand-orange hover:bg-brand-orange-dark text-white shadow-xl shadow-brand-orange/20 hover:scale-105 transition-all duration-300"
                         onClick={onApply}
                     >
-                        QUERO VESTIR O MANTO
+                        FAÇA PARTE DO TIME
+                    </Button>
+                    <Button
+                        size="lg"
+                        variant="outline"
+                        className="h-16 px-12 rounded-full text-lg font-bold border-2 border-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+                        onClick={onViewJobs}
+                    >
+                        VAGAS DISPONÍVEIS
                     </Button>
                 </div>
             </section>
@@ -1700,7 +1708,7 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
 
     if (view === 'landing') {
         // Redirect to admin view (which handles login) when asking to see talents
-        return <LandingView onApply={() => setView('candidate-register')} onViewTalents={() => setView('admin')} />;
+        return <LandingView onApply={() => setView('candidate-register')} onViewTalents={() => setView('admin')} onViewJobs={() => setView('public-jobs')} />;
     }
 
     // 2. Admin Views (Protected)
