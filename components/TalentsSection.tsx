@@ -284,7 +284,7 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                     <a href="#mandamentos" className="hover:text-brand-gold transition-colors">10 MANDAMENTOS</a>
                     <a href="#beneficios" className="hover:text-brand-gold transition-colors">BENEFÍCIOS</a>
                 </nav>
-                <Button variant="ghost" className="text-xs text-muted-foreground hover:text-brand-gold mr-4" onClick={onViewTalents}>
+                <Button variant="ghost" className="text-xs text-muted-foreground hover:text-black dark:hover:text-brand-gold mr-4" onClick={onViewTalents}>
                     AREA DO RECRUTADOR
                 </Button>
                 <div className="flex items-center">
