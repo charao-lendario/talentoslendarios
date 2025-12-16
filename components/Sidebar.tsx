@@ -220,7 +220,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     </nav>
                 </div>
 
-                {/* Footer Controls (Theme & Mode) - REMOVED as per request to keep ONLY Applications menu */}
+                {/* Footer Controls (Theme & Mode) - REMOVED as per request to keep ONLY Applications menu. Updated. */}
             </aside>
         </>
     );
