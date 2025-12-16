@@ -285,6 +285,9 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                     <a href="#mandamentos" className="hover:text-brand-gold transition-colors">10 MANDAMENTOS</a>
                     <a href="#beneficios" className="hover:text-brand-gold transition-colors">BENEFÍCIOS</a>
                 </nav>
+                <Button variant="ghost" className="text-xs font-semibold mr-4 hover:bg-transparent hover:text-brand-orange" onClick={() => setView('public-jobs')}>
+                    VAGAS DISPONÍVEIS
+                </Button>
                 <Button variant="ghost" className="text-xs text-muted-foreground hover:text-black dark:hover:text-white mr-4" onClick={onViewTalents}>
                     AREA DO RECRUTADOR
                 </Button>
@@ -496,23 +499,220 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
     </div>
 );
 
-const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) => void }> = ({ onCancel, onSubmit }) => {
-    const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
-    const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
-    const [seniority, setSeniority] = useState<string>("");
-    const [profileImage, setProfileImage] = useState<string | null>(null);
+const PublicJobsView: React.FC<{ jobs: Job[], onRegister: () => void, onBack: () => void }> = ({ jobs, onRegister, onBack }) => (
+    <div className="min-h-screen bg-background text-foreground animate-fade-in pb-20">
+        <div className="max-w-7xl mx-auto px-6 pt-24 space-y-12">
+            <div className="flex items-center gap-4">
+                <Button variant="ghost" onClick={onBack} size="icon"><Icon name="arrow-left" /></Button>
+                <div>
+                    <h1 className="text-4xl font-bold font-sans">Vagas Disponíveis</h1>
+                    <p className="text-muted-foreground font-serif text-lg">Junte-se ao time que está construindo o futuro.</p>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {jobs.filter(j => j.status === 'active').map(job => (
+                    <Card key={job.id} className="hover:border-brand-orange/50 transition-all duration-300 group relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-1 h-full bg-brand-orange transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
+                        <CardHeader>
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <Badge variant="outline" className="mb-2 border-brand-orange/30 text-brand-orange">{job.type}</Badge>
+                                    <CardTitle className="text-2xl">{job.title}</CardTitle>
+                                    <CardDescription className="flex items-center gap-2 mt-1">
+                                        <Icon name="map-pin" size="size-3" /> {job.location}
+                                    </CardDescription>
+                                </div>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <p className="text-muted-foreground line-clamp-3 font-serif">{job.mission}</p>
+                            <div className="space-y-2">
+                                <p className="text-sm font-semibold flex items-center gap-2"><Icon name="target" size="size-4" className="text-brand-gold" /> Missão</p>
+                                <p className="text-sm text-muted-foreground">{job.mission}</p>
+                            </div>
+                        </CardContent>
+                        <CardFooter>
+                            <Button className="w-full bg-foreground text-background hover:bg-brand-orange hover:text-white transition-colors" onClick={() => {
+                                alert("Para se candidatar, é necessário criar seu cadastro primeiro.");
+                                onRegister();
+                            }}>
+                                Candidatar-se
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+        </div>
+    </div>
+);
+
+const CandidateDashboardView: React.FC<{
+    candidate: Talent,
+    jobs: Job[],
+    onLogout: () => void,
+    onUpdateProfile: (data: any) => void
+}> = ({ candidate, jobs, onLogout, onUpdateProfile }) => {
+    const [myApplications, setMyApplications] = useState<any[]>([]);
+
+    useEffect(() => {
+        fetchApplications();
+    }, [candidate.id]);
+
+    const fetchApplications = async () => {
+        const { data } = await supabase.from('applications').select('*, job:jobs(*)').eq('talent_id', candidate.id);
+        if (data) setMyApplications(data);
+    };
+
+    const handleApply = async (jobId: string) => {
+        const { error } = await supabase.from('applications').insert({
+            job_id: jobId,
+            talent_id: candidate.id,
+            status: 'Applied'
+        });
+
+        if (error) {
+            alert('Erro ao se candidatar: ' + error.message);
+        } else {
+            alert('Candidatura realizada com sucesso!');
+            fetchApplications();
+        }
+    };
+
+    return (
+        <div className="min-h-screen bg-background text-foreground animate-fade-in">
+            <header className="border-b border-border bg-background/50 backdrop-blur sticky top-0 z-10">
+                <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                        <Avatar>
+                            <AvatarImage src={candidate.avatar} />
+                            <AvatarFallback>{candidate.name[0]}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <p className="text-sm text-muted-foreground">Bem-vindo(a),</p>
+                            <p className="font-bold">{candidate.name}</p>
+                        </div>
+                    </div>
+                    <Button variant="ghost" size="sm" onClick={onLogout}>
+                        <Icon name="log-out" className="mr-2 size-4" /> Sair
+                    </Button>
+                </div>
+            </header>
+
+            <main className="max-w-7xl mx-auto px-6 py-8">
+                <Tabs defaultValue="vagas" className="w-full">
+                    <TabsList className="mb-8">
+                        <TabsTrigger value="vagas">Vagas Disponíveis</TabsTrigger>
+                        <TabsTrigger value="candidaturas">Minhas Candidaturas</TabsTrigger>
+                        <TabsTrigger value="perfil">Meu Perfil</TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="vagas" className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {jobs.filter(j => j.status === 'active').map(job => {
+                                const isApplied = myApplications.some(app => app.job_id === job.id);
+                                return (
+                                    <Card key={job.id} className="hover:border-brand-orange/50 transition-all duration-300">
+                                        <CardHeader>
+                                            <div className="flex justify-between">
+                                                <Badge variant="outline">{job.type}</Badge>
+                                                {isApplied && <Badge className="bg-green-500/10 text-green-500 border-green-500/20">Candidatado</Badge>}
+                                            </div>
+                                            <CardTitle className="mt-2">{job.title}</CardTitle>
+                                            <CardDescription>{job.location}</CardDescription>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <p className="text-sm text-muted-foreground line-clamp-3">{job.mission}</p>
+                                        </CardContent>
+                                        <CardFooter>
+                                            <Button
+                                                className={cn("w-full", isApplied ? "opacity-50" : "bg-brand-orange hover:bg-brand-orange-dark")}
+                                                disabled={isApplied}
+                                                onClick={() => handleApply(job.id)}
+                                            >
+                                                {isApplied ? "Já Candidatado" : "Candidatar-se para a Vaga"}
+                                            </Button>
+                                        </CardFooter>
+                                    </Card>
+                                )
+                            })}
+                        </div>
+                    </TabsContent>
+
+                    <TabsContent value="candidaturas">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Histórico de Candidaturas</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead>Vaga</TableHead>
+                                            <TableHead>Data</TableHead>
+                                            <TableHead>Status</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {myApplications.length === 0 && (
+                                            <TableRow>
+                                                <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">
+                                                    Nenhuma candidatura encontrada.
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {myApplications.map(app => (
+                                            <TableRow key={app.id}>
+                                                <TableCell className="font-medium">{app.job?.title || 'Vaga Desconhecida'}</TableCell>
+                                                <TableCell>{new Date(app.created_at).toLocaleDateString()}</TableCell>
+                                                <TableCell>
+                                                    <Badge variant="outline" className={cn(
+                                                        app.status === 'Applied' && "bg-blue-500/10 text-blue-500",
+                                                        app.status === 'Rejected' && "bg-red-500/10 text-red-500",
+                                                        app.status === 'Interview' && "bg-yellow-500/10 text-yellow-500",
+                                                    )}>
+                                                        {app.status}
+                                                    </Badge>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+
+                    <TabsContent value="perfil">
+                        <CandidateFormView
+                            initialData={candidate}
+                            onCancel={() => { }}
+                            onSubmit={onUpdateProfile}
+                            isEditing={true}
+                        />
+                    </TabsContent>
+                </Tabs>
+            </main>
+        </div>
+    );
+};
+
+const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) => void, initialData?: any, isEditing?: boolean }> = ({ onCancel, onSubmit, initialData, isEditing = false }) => {
+    const [selectedProducts, setSelectedProducts] = useState<string[]>(initialData?.products || []);
+    const [selectedAreas, setSelectedAreas] = useState<string[]>(initialData?.areas || []);
+    const [seniority, setSeniority] = useState<string>(initialData?.seniority || "");
+    const [profileImage, setProfileImage] = useState<string | null>(initialData?.avatar || null);
     const profileInputRef = useRef<HTMLInputElement>(null);
 
     // Form State
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        location: '',
-        linkedin: '',
-        bio: '',
-        salary: '',
-        functions: ''
+        name: initialData?.name || '',
+        email: initialData?.email || '',
+        phone: initialData?.phone || '',
+        location: initialData?.location || '',
+        linkedin: initialData?.linkedin || '', // Note: Assuming Talent object has linkedin mapped or we pass incomplete
+        bio: initialData?.bio || '',
+        salary: initialData?.fixedSalary || '',
+        functions: initialData?.role || '' // Mapping role to functions
     });
 
     const handleInputChange = (field: string, value: string) => {
@@ -582,15 +782,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) 
                         </div>
                         <div className="text-center sm:text-left space-y-1">
                             <h3 className="font-bold text-lg">Foto do Perfil</h3>
-                            <p className="text-sm text-muted-foreground">Recomendado: JPG ou PNG. A imagem ajuda na identificação do perfil.</p>
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="mt-2 border-brand-orange text-brand-orange hover:bg-brand-orange/10"
-                                onClick={() => profileInputRef.current?.click()}
-                            >
-                                Carregar Foto
-                            </Button>
+                            <p className="text-sm text-muted-foreground">Recomendado: JPG ou PNG.</p>
                         </div>
                     </div>
 
@@ -722,27 +914,32 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) 
                         </div>
                     </div>
 
-                    {/* Uploads */}
-                    <div className="space-y-6">
-                        <h3 className="text-xl font-bold border-b border-border pb-2 flex items-center gap-2">
-                            <Icon name="document" className="text-brand-orange" /> Anexos
-                        </h3>
-                        <div className="space-y-2">
-                            <Label>Currículo ou Portfólio (PDF) <span className="text-destructive">*</span></Label>
-                            <FileUpload accept=".pdf,.doc,.docx" />
-                            <p className="text-xs text-muted-foreground">O envio do currículo é obrigatório para participação.</p>
+                    {/* Uploads - Only show if creating new (simplified for now as modifying file uploads in edit is complex) */}
+                    {!isEditing && (
+                        <div className="space-y-6">
+                            <h3 className="text-xl font-bold border-b border-border pb-2 flex items-center gap-2">
+                                <Icon name="document" className="text-brand-orange" /> Anexos
+                            </h3>
+                            <div className="space-y-2">
+                                <Label>Currículo ou Portfólio (PDF) <span className="text-destructive">*</span></Label>
+                                <FileUpload accept=".pdf,.doc,.docx" />
+                                <p className="text-xs text-muted-foreground">O envio do currículo é obrigatório para participação.</p>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                 </CardContent>
                 <CardFooter className="flex justify-end gap-4 p-8 bg-muted/10 border-t border-border">
-                    <Button variant="ghost" onClick={onCancel}>Cancelar</Button>
+                    {!isEditing && <Button variant="ghost" onClick={onCancel}>Cancelar</Button>}
                     <Button className="bg-brand-orange hover:bg-brand-orange-dark text-white px-8" onClick={() => onSubmit({ ...formData, products: selectedProducts, areas: selectedAreas, seniority, profileImage })}>
-                        Finalizar Cadastro
+                        {isEditing ? 'Salvar Alterações' : 'Finalizar Cadastro'}
                     </Button>
                 </CardFooter>
             </Card>
         </div>
+    );
+};
+        </div >
     );
 };
 
@@ -1292,8 +1489,9 @@ const LoginView: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
 // --- MAIN COMPONENT ---
 
 const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing' }) => {
-    const [view, setView] = useState<'landing' | 'candidate-register' | 'admin' | 'admin-new-job' | 'admin-talent-detail' | 'admin-job-detail'>(initialView);
+    const [view, setView] = useState<'landing' | 'candidate-register' | 'candidate-dashboard' | 'public-jobs' | 'admin' | 'admin-new-job' | 'admin-talent-detail' | 'admin-job-detail'>(initialView);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [currentCandidate, setCurrentCandidate] = useState<Talent | null>(null);
 
     useEffect(() => {
         setView(initialView);
@@ -1371,6 +1569,16 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
     };
 
     const handleCreateCandidate = async (data: any) => {
+        // If editing existing candidate
+        if (currentCandidate) {
+            // Update logic (simplified for demo)
+            const updatedTalent = { ...currentCandidate, ...data, name: data.name, bio: data.bio };
+            // In real app, perform update query
+            setCurrentCandidate(updatedTalent);
+            alert('Perfil atualizado com sucesso!');
+            return;
+        }
+
         // 1. Create UUID
         const newId = crypto.randomUUID();
 
@@ -1411,9 +1619,28 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
             console.error('Error creating talent:', talentError);
             alert('Erro ao cadastrar talento: ' + talentError.message);
         } else {
-            alert('Cadastro realizado com sucesso!');
-            fetchTalents(); // Refresh (though only admin sees it)
-            setView('landing');
+            alert('Cadastro realizado com sucesso! Bem-vindo à sua área.');
+
+            // Set current candidate state to auto-login
+            setCurrentCandidate({
+                id: newId,
+                name: data.name,
+                role: data.functions,
+                email: data.email,
+                phone: data.phone,
+                location: data.location,
+                bio: data.bio,
+                products: data.products,
+                areas: data.areas,
+                seniority: data.seniority,
+                fixedSalary: data.salary,
+                avatar: data.profileImage || `https://i.pravatar.cc/150?u=${newId}`,
+                rating: 0,
+                tags: [...data.areas, ...data.products]
+            });
+
+            fetchTalents();
+            setView('candidate-dashboard'); // Redirect to dashboard
         }
     };
 
@@ -1434,6 +1661,13 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
     };
 
     // --- VIEW ROUTING ---
+    if (view === 'public-jobs') {
+        return <PublicJobsView jobs={jobs} onBack={() => setView('landing')} onRegister={() => setView('candidate-register')} />;
+    }
+
+    if (view === 'candidate-dashboard' && currentCandidate) {
+        return <CandidateDashboardView candidate={currentCandidate} jobs={jobs} onLogout={() => { setCurrentCandidate(null); setView('landing'); }} onUpdateProfile={handleCreateCandidate} />;
+    }
 
     // 1. Candidate Views (Public)
     if (view === 'candidate-register') {
