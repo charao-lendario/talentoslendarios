@@ -939,9 +939,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) 
         </div>
     );
 };
-        </div >
-    );
-};
+
 
 const AdminNewJobView: React.FC<{ onSave: (job: Job) => void, onCancel: () => void }> = ({ onSave, onCancel }) => {
     const [formData, setFormData] = useState<Partial<Job>>({ status: 'active' });
