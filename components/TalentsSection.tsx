@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { analyzeCulturalFit, analyzeJobMatch } from '../lib/ai';
 import { Button } from './ui/button';
 import { Icon } from './ui/icon';
 import { Symbol } from './ui/symbol';
@@ -954,30 +955,46 @@ const AdminTalentDetailView: React.FC<{ talent: Talent, onBack: () => void, avai
     // Interview Checklist State
     const [checklistState, setChecklistState] = useState<Record<string, boolean>>({});
 
-    const handleAiAnalysis = () => {
+    // AI Analysis Logic
+    const handleAiAnalysis = async () => {
         setIsAnalyzing(true);
-        setTimeout(() => {
-            const matches = availableJobs.map(job => {
-                const score = Math.floor(Math.random() * 40) + 60; // Mock score 60-100
-                return {
-                    job,
-                    score,
-                    reason: `Alta compatibilidade com "${job.title}". Tags do candidato (${talent.tags.slice(0, 2).join(', ')}) alinham com requisitos.`
-                };
-            }).sort((a, b) => b.score - a.score);
-            setAiMatches(matches);
+        try {
+            const matches = await analyzeJobMatch(talent, availableJobs);
+
+            // Merge results with job objects
+            const enrichedMatches = matches.map((m: any) => {
+                const job = availableJobs.find(j => j.id === m.jobId);
+                return job ? { job, score: m.score, reason: m.reason } : null;
+            }).filter(Boolean).sort((a: any, b: any) => b.score - a.score);
+
+            setAiMatches(enrichedMatches);
+        } catch (error) {
+            alert("Erro ao analisar match. Verifique a chave de API.");
+        } finally {
             setIsAnalyzing(false);
-        }, 2000);
+        }
     };
 
-    const handleCultureUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleCultureUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
             setIsAnalyzingCulture(true);
-            // Simulate AI Processing delay
-            setTimeout(() => {
-                setCultureAnalysis(MOCK_CULTURE_ANALYSIS);
-                setIsAnalyzingCulture(false);
-            }, 3000);
+
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                const text = event.target?.result as string;
+                try {
+                    // Send to Gemini
+                    const analysis = await analyzeCulturalFit(talent.name, talent.bio, text);
+                    setCultureAnalysis(analysis);
+                } catch (error) {
+                    alert("Erro na análise cultural. Verifique a chave de API.");
+                } finally {
+                    setIsAnalyzingCulture(false);
+                }
+            };
+            // Read as text (User should upload .txt transcript)
+            reader.readAsText(file);
         }
     };
 
