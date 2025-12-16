@@ -8,14 +8,14 @@ async function main() {
 
     // 1. Update Nilson Silva
     // Find Profile first
-    const nilson = await prisma.profiles.findFirst({
-        where: { full_name: 'Nilson Silva' }
+    const nilson = await prisma.profile.findFirst({
+        where: { fullName: 'Nilson Silva' }
     });
 
     if (nilson) {
-        await prisma.talents.update({
+        await prisma.talent.update({
             where: { id: nilson.id },
-            data: { hourly_rate: '8000' }
+            data: { hourlyRate: '8000' }
         });
         console.log('Updated Nilson Silva salary.');
     } else {
@@ -23,25 +23,25 @@ async function main() {
     }
 
     // 2. Update Ana Clara -> Vitor Silva
-    const anaClara = await prisma.profiles.findFirst({
-        where: { full_name: 'Ana Clara' }
+    const anaClara = await prisma.profile.findFirst({
+        where: { fullName: 'Ana Clara' }
     });
 
     if (anaClara) {
         // Update Profile
-        await prisma.profiles.update({
+        await prisma.profile.update({
             where: { id: anaClara.id },
             data: {
-                full_name: 'Vitor Silva',
+                fullName: 'Vitor Silva',
                 email: 'vitor.silva@example.com', // innovative guess to avoid conflict
-                avatar_url: 'https://i.pravatar.cc/150?u=vitor'
+                avatarUrl: 'https://i.pravatar.cc/150?u=vitor'
             }
         });
         // Update Talent
-        await prisma.talents.update({
+        await prisma.talent.update({
             where: { id: anaClara.id },
             data: {
-                hourly_rate: '12000',
+                hourlyRate: '12000',
                 bio: 'Focado em estruturar data lakes para LLMs e pipelines de RAG.'
             }
         });
@@ -51,25 +51,25 @@ async function main() {
     }
 
     // 3. Update Carlos Mendes -> Ana Marques
-    const carlos = await prisma.profiles.findFirst({
-        where: { full_name: 'Carlos Mendes' }
+    const carlos = await prisma.profile.findFirst({
+        where: { fullName: 'Carlos Mendes' }
     });
 
     if (carlos) {
         // Update Profile
-        await prisma.profiles.update({
+        await prisma.profile.update({
             where: { id: carlos.id },
             data: {
-                full_name: 'Ana Marques',
+                fullName: 'Ana Marques',
                 email: 'ana.marques@example.com',
-                avatar_url: 'https://i.pravatar.cc/150?u=ana'
+                avatarUrl: 'https://i.pravatar.cc/150?u=ana'
             }
         });
         // Update Talent
-        await prisma.talents.update({
+        await prisma.talent.update({
             where: { id: carlos.id },
             data: {
-                hourly_rate: '10000',
+                hourlyRate: '10000',
                 bio: 'Copywriter sênior migrando para IA. Cria personas complexas e fluxos de conversa naturais.'
             }
         });

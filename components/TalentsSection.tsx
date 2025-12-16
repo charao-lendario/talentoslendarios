@@ -1430,12 +1430,12 @@ const AdminTalentDetailView: React.FC<{ talent: Talent, onBack: () => void, avai
 
 // --- LOGIN VIEW ---
 const LoginView: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
-    const [email, setEmail] = useState('admin@lendaria.com');
-    const [password, setPassword] = useState('888');
+    const [email, setEmail] = useState('bianca@academialendaria.ai');
+    const [password, setPassword] = useState('RH@lendario888');
     const [error, setError] = useState('');
 
     const handleLogin = () => {
-        if (email === 'admin@lendaria.com' && password === '888') {
+        if (email === 'bianca@academialendaria.ai' && password === 'RH@lendario888') {
             onLogin();
         } else {
             setError('Credenciais inválidas. Tente novamente.');
@@ -1460,7 +1460,7 @@ const LoginView: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
                         <Input
                             id="email"
                             type="email"
-                            placeholder="admin@lendaria.com"
+                            placeholder="bianca@academialendaria.ai"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
