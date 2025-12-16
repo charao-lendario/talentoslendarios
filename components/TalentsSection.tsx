@@ -1042,7 +1042,7 @@ const AdminJobDetailView: React.FC<{ job: Job, onBack: () => void, onViewTalent:
                         </div>
                     </div>
                 </div>
-                </div>
+
                 <Button variant="outline" className="gap-2" onClick={onEdit}>
                     <Icon name="pencil" /> Editar Vaga
                 </Button>
