@@ -35,7 +35,7 @@ const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
         {...props}
       >
         <span className={cn("flex items-center justify-center", isChecked ? "opacity-100" : "opacity-0")}>
-          <Icon name="check" className="h-3 w-3" />
+          <Icon name="check" size="size-3" />
         </span>
       </button>
     )
