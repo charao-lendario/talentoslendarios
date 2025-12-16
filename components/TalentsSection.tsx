@@ -8,8 +8,7 @@ import { ThemeToggle } from './ui/theme-toggle';
 import { Instagram, Linkedin, Globe, Laptop, Zap, Users2, Palmtree, Cake, Ticket, Gamepad2, GraduationCap, Gift, Rocket, Moon, Sun } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from './ui/card';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
+import { SpeechInput as Input, SpeechTextarea as Textarea } from './ui/speech'; // Replaced standard Input/Textarea
 import { Checkbox } from './ui/checkbox';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Label } from './ui/label';
