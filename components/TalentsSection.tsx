@@ -275,7 +275,7 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
         <div className="w-full max-w-[1920px] mx-auto relative shadow-2xl shadow-black">
 
             {/* Minimalist Header */}
-            <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-background/80 backdrop-blur-md border-b border-white/5">
+            <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-background/80 backdrop-blur-md border-b border-border dark:border-white/5">
                 <div className="text-xl font-bold tracking-tight text-foreground">
                     Lendár<span className="text-brand-gold">[IA]</span>
                 </div>
@@ -295,7 +295,7 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
             {/* HERO / INTRO SECTION */}
             <section className="pt-40 pb-20 px-6 max-w-4xl mx-auto text-center space-y-12">
                 <div className="space-y-6">
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white drop-shadow-xl">
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-foreground drop-shadow-xl">
                         Trabalhe na <br />
                         <span className="text-brand-gold relative inline-block">
                             Academia Lendária
@@ -378,18 +378,18 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                         "Ética inabalável",
                         "Propósito maior"
                     ].map((item, i) => (
-                        <div key={i} className="group relative p-6 h-64 bg-zinc-900/40 border border-white/5 rounded-2xl overflow-hidden hover:border-brand-gold/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-gold/10 flex flex-col justify-between">
+                        <div key={i} className="group relative p-6 h-64 bg-white/50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-white/5 rounded-2xl overflow-hidden hover:border-brand-gold/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-gold/10 flex flex-col justify-between">
                             {/* Background Gradient on Hover */}
                             <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/0 to-brand-gold/0 group-hover:from-brand-gold/5 group-hover:to-transparent transition-all duration-500"></div>
 
                             {/* Number */}
-                            <span className="text-5xl md:text-6xl font-serif font-bold text-white/5 group-hover:text-brand-gold/20 transition-colors duration-500 select-none">
+                            <span className="text-5xl md:text-6xl font-serif font-bold text-zinc-200 dark:text-white/5 group-hover:text-brand-gold/20 transition-colors duration-500 select-none">
                                 {i + 1}
                             </span>
 
                             {/* Text */}
                             <div className="relative z-10">
-                                <h3 className="text-lg lg:text-base xl:text-xl font-bold font-sans text-zinc-100 group-hover:text-brand-gold transition-colors duration-300 leading-tight">
+                                <h3 className="text-lg lg:text-base xl:text-xl font-bold font-sans text-foreground dark:text-zinc-100 group-hover:text-brand-gold transition-colors duration-300 leading-tight">
                                     {item}
                                 </h3>
                                 <div className="w-8 h-1 bg-brand-orange mt-4 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
@@ -398,19 +398,19 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                     ))}
                 </div>
 
-                <div className="p-8 mt-12 bg-gradient-to-r from-zinc-950 to-zinc-900 border border-white/10 rounded-2xl text-center max-w-3xl mx-auto shadow-lg">
-                    <p className="text-xl font-serif text-zinc-300">
+                <div className="p-8 mt-12 bg-white/80 dark:bg-gradient-to-r dark:from-zinc-950 dark:to-zinc-900 border border-zinc-200 dark:border-white/10 rounded-2xl text-center max-w-3xl mx-auto shadow-lg">
+                    <p className="text-xl font-serif text-zinc-600 dark:text-zinc-300">
                         Princípio simples: <strong className="text-brand-gold">aja como um Lendário</strong> — se todo mundo fizesse o que você vai fazer, a Academia ficaria mais forte?
                     </p>
                 </div>
             </section>
 
             {/* BENEFÍCIOS */}
-            <section id="beneficios" className="py-24 px-6 bg-zinc-950/50">
+            <section id="beneficios" className="py-24 px-6 bg-zinc-50/50 dark:bg-zinc-950/50">
                 <div className="max-w-7xl mx-auto space-y-16">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl md:text-5xl font-bold font-sans">O que você encontra aqui</h2>
-                        <p className="font-serif text-xl text-zinc-400 max-w-2xl mx-auto">
+                        <p className="font-serif text-xl text-muted-foreground max-w-2xl mx-auto">
                             Mais do que benefícios, entregamos um estilo de vida <span className="text-brand-gold">Lendário</span>.
                         </p>
                     </div>
@@ -458,11 +458,11 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                                 text: "Experiências Lendárias ao longo da jornada."
                             }
                         ].map((item, i) => (
-                            <div key={i} className="group p-6 bg-zinc-900/40 border border-white/5 rounded-2xl flex flex-col items-center text-center gap-4 transition-all duration-300 hover:bg-white/5 hover:-translate-y-1 hover:border-brand-gold/20 hover:shadow-xl hover:shadow-brand-gold/5">
+                            <div key={i} className="group p-6 bg-white/60 dark:bg-zinc-900/40 border border-zinc-200 dark:border-white/5 rounded-2xl flex flex-col items-center text-center gap-4 transition-all duration-300 hover:bg-white dark:hover:bg-white/5 hover:-translate-y-1 hover:border-brand-gold/20 hover:shadow-xl hover:shadow-brand-gold/5">
                                 <div className="p-4 rounded-full bg-brand-gold/10 text-brand-gold group-hover:scale-110 group-hover:bg-brand-gold group-hover:text-black transition-all duration-300">
                                     <item.icon className="h-6 w-6" strokeWidth={1.5} />
                                 </div>
-                                <p className="text-sm md:text-base font-medium text-zinc-300 group-hover:text-white transition-colors">
+                                <p className="text-sm md:text-base font-medium text-zinc-600 dark:text-zinc-300 group-hover:text-foreground dark:group-hover:text-white transition-colors">
                                     {item.text}
                                 </p>
                             </div>
