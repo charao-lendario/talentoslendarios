@@ -584,19 +584,19 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <Label>Nome Completo</Label>
+                                <Label>Nome Completo <span className="text-destructive">*</span></Label>
                                 <Input placeholder="Seu nome" />
                             </div>
                             <div className="space-y-2">
-                                <Label>Email</Label>
+                                <Label>Email <span className="text-destructive">*</span></Label>
                                 <Input placeholder="seu@email.com" type="email" />
                             </div>
                             <div className="space-y-2">
-                                <Label>Telefone (WhatsApp)</Label>
+                                <Label>Telefone (WhatsApp) <span className="text-destructive">*</span></Label>
                                 <Input placeholder="(00) 00000-0000" />
                             </div>
                             <div className="space-y-2">
-                                <Label>Localização</Label>
+                                <Label>Localização <span className="text-destructive">*</span></Label>
                                 <Input placeholder="Cidade - UF" />
                             </div>
                             <div className="space-y-2 md:col-span-2">
@@ -608,7 +608,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <Label>Breve Apresentação</Label>
+                            <Label>Breve Apresentação <span className="text-destructive">*</span></Label>
                             <Textarea placeholder="Conte um pouco sobre quem é você e seus objetivos..." className="h-32" />
                         </div>
                     </div>
@@ -621,7 +621,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <Label>Pretensão Salarial Fixa (Mensal)</Label>
+                                <Label>Pretensão Salarial Fixa (Mensal) <span className="text-destructive">*</span></Label>
                                 <Input
                                     placeholder="R$ 0,00"
                                     maxLength={18}
@@ -649,7 +649,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label>Nível de Senioridade (Auto-avaliação)</Label>
+                                <Label>Nível de Senioridade (Auto-avaliação) <span className="text-destructive">*</span></Label>
                                 <Select
                                     placeholder="Selecione..."
                                     options={SENIORITY_LEVELS}
@@ -660,7 +660,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                         </div>
 
                         <div className="space-y-2">
-                            <Label>Funções que está apto a atuar</Label>
+                            <Label>Funções que está apto a atuar <span className="text-destructive">*</span></Label>
                             <Textarea placeholder="Liste as funções, cargos ou papéis que você domina..." className="h-24" />
                             <p className="text-xs text-muted-foreground">Descreva livremente suas capacidades técnicas e operacionais.</p>
                         </div>
@@ -673,7 +673,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                         </h3>
 
                         <div className="space-y-3">
-                            <Label>Produtos que você participa/conhece:</Label>
+                            <Label>Produtos que você participa/conhece: <span className="text-destructive">*</span></Label>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                                 {ACADEMY_PRODUCTS.map(prod => (
                                     <div
@@ -694,7 +694,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                         </div>
 
                         <div className="space-y-3 pt-2">
-                            <Label>Áreas de Interesse:</Label>
+                            <Label>Áreas de Interesse: <span className="text-destructive">*</span></Label>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                                 {INTEREST_AREAS.map(area => (
                                     <div
