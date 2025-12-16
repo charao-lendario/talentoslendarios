@@ -52,58 +52,77 @@ declare global {
 // Hook
 const useSpeechRecognition = (onResult: (text: string) => void) => {
     const [isListening, setIsListening] = useState(false);
-    const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+    const recognitionRef = React.useRef<SpeechRecognition | null>(null);
+    const onResultRef = React.useRef(onResult);
 
     useEffect(() => {
-        if (typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition)) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognitionInstance = new SpeechRecognition();
-            recognitionInstance.continuous = false; // Stop after one sentence/phrase
-            recognitionInstance.interimResults = false;
-            recognitionInstance.lang = 'pt-BR';
-
-            recognitionInstance.onresult = (event) => {
-                if (event.results.length > 0) {
-                    const transcript = event.results[0][0].transcript;
-                    onResult(transcript);
-                }
-                setIsListening(false);
-            };
-
-            recognitionInstance.onerror = (event: any) => {
-                console.error("Speech recognition error", event.error);
-                setIsListening(false);
-            };
-
-            recognitionInstance.onend = () => {
-                setIsListening(false);
-            };
-
-            setRecognition(recognitionInstance);
-        }
+        onResultRef.current = onResult;
     }, [onResult]);
 
-    const startListening = useCallback(() => {
-        if (recognition) {
-            try {
-                recognition.start();
-                setIsListening(true);
-            } catch (error) {
-                console.error("Error starting recognition:", error);
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (recognitionRef.current) {
+                recognitionRef.current.abort();
             }
-        } else {
-            alert("Navegador não suporta reconhecimento de voz.");
-        }
-    }, [recognition]);
+        };
+    }, []);
 
-    const stopListening = useCallback(() => {
-        if (recognition) {
-            recognition.stop();
+    const startListening = useCallback(() => {
+        if (typeof window === 'undefined') return;
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("Navegador não suporta reconhecimento de voz.");
+            return;
+        }
+
+        if (!recognitionRef.current) {
+            const instance = new SpeechRecognition();
+            instance.continuous = false;
+            instance.interimResults = false;
+            instance.lang = 'pt-BR';
+            recognitionRef.current = instance;
+        }
+
+        const recognition = recognitionRef.current;
+
+        recognition.onresult = (event: any) => {
+            if (event.results.length > 0) {
+                const transcript = event.results[0][0].transcript;
+                onResultRef.current(transcript);
+            }
+            setIsListening(false);
+        };
+
+        recognition.onerror = (event: any) => {
+            console.error("Speech recognition error", event.error);
+            setIsListening(false);
+        };
+
+        recognition.onend = () => {
+            setIsListening(false);
+        };
+
+        try {
+            recognition.start();
+            setIsListening(true);
+        } catch (error) {
+            console.error("Error starting recognition:", error);
             setIsListening(false);
         }
-    }, [recognition]);
+    }, []);
 
-    return { isListening, startListening, stopListening, isSupported: !!recognition };
+    const stopListening = useCallback(() => {
+        if (recognitionRef.current) {
+            recognitionRef.current.stop();
+            setIsListening(false);
+        }
+    }, []);
+
+    const isSupported = typeof window !== 'undefined' && (!!window.SpeechRecognition || !!window.webkitSpeechRecognition);
+
+    return { isListening, startListening, stopListening, isSupported };
 };
 
 export const SpeechInput = React.forwardRef<HTMLInputElement, InputProps>(
@@ -158,10 +177,39 @@ SpeechInput.displayName = "SpeechInput";
 
 export const SpeechTextarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     ({ className, value, onChange, ...props }, ref) => {
+        const [localValue, setLocalValue] = useState(value || '');
+
+        // Sync local value when prop changes (e.g. from database load or reset)
+        useEffect(() => {
+            setLocalValue(value || '');
+        }, [value]);
+
+        const debouncedOnChange = useCallback(
+            debounce((newValue: string, event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                if (onChange) {
+                    // Create a synthetic event with the new value
+                    // We need to clone the event or create a compatible object since the original event might be reused/invalidated
+                    // But standard React events are pooled in older versions, though not in 18+. 
+                    // Safer to just ensure target has value.
+                    onChange(event);
+                }
+            }, 300),
+            [onChange]
+        );
+
+        const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            const newValue = e.target.value;
+            setLocalValue(newValue);
+            debouncedOnChange(newValue, e);
+        };
+
         const handleResult = (text: string) => {
-            const currentValue = value ? String(value) : '';
+            const currentValue = localValue ? String(localValue) : '';
             const newValue = currentValue ? `${currentValue} ${text}` : text;
 
+            setLocalValue(newValue);
+
+            // Create synthetic event for the speech result
             const event = {
                 target: { value: newValue },
                 currentTarget: { value: newValue }
@@ -177,8 +225,8 @@ export const SpeechTextarea = React.forwardRef<HTMLTextAreaElement, TextareaProp
                 <Textarea
                     ref={ref}
                     className={cn("pr-10", className)}
-                    value={value}
-                    onChange={onChange}
+                    value={localValue}
+                    onChange={handleChange}
                     {...props}
                 />
                 {isSupported && (
@@ -199,3 +247,12 @@ export const SpeechTextarea = React.forwardRef<HTMLTextAreaElement, TextareaProp
     }
 );
 SpeechTextarea.displayName = "SpeechTextarea";
+
+// Utility debounce function
+function debounce<T extends (...args: any[]) => void>(func: T, wait: number) {
+    let timeout: NodeJS.Timeout;
+    return (...args: Parameters<T>) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+    };
+}

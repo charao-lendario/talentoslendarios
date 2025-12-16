@@ -101,7 +101,9 @@ const INITIAL_JOBS: Job[] = [
         successIndicator: 'Redução de 30% no tempo de resposta da IA.',
         okr: 'O: Dominar a engenharia de prompt. KR: 100 prompts validados.',
         status: 'active',
-        candidates: 12
+        candidates: 12,
+        type: 'Full-time',
+        location: 'Remoto'
     },
     {
         id: '2',
@@ -111,11 +113,49 @@ const INITIAL_JOBS: Job[] = [
         successIndicator: 'NPS de 90+ na nova feature de chat.',
         okr: 'O: UX de classe mundial. KR: Tempo de tarefa reduzido em 50%.',
         status: 'active',
-        candidates: 8
+        candidates: 8,
+        type: 'Full-time',
+        location: 'São Paulo, SP'
     },
+    {
+        id: '3',
+        title: 'Engenheiro de Software Full Stack',
+        mission: 'Desenvolver a infraestrutura de soluções escaláveis baseadas em IA.',
+        responsibilities: '- Construir APIs robustas\n- Otimizar performance de banco de dados\n- Integrar modelos de LLM',
+        successIndicator: 'Sistema capaz de processar 1M de requests/dia com latência < 100ms.',
+        okr: 'O: Infraestrutura resiliente. KR: 99.9% de uptime.',
+        status: 'active',
+        candidates: 15,
+        type: 'Full-time',
+        location: 'Remoto'
+    },
+    {
+        id: '4',
+        title: 'Analista de Dados & IA',
+        mission: 'Transformar dados brutos em insights estratégicos para nossos modelos.',
+        responsibilities: '- Limpeza e estruturação de datasets\n- Análise exploratória\n- Tunagem fina de modelos',
+        successIndicator: 'Aumento de 20% na precisão dos modelos internos.',
+        okr: 'O: Dados confiáveis. KR: Zero erros de integridade em datasets críticos.',
+        status: 'active',
+        candidates: 7,
+        type: 'Full-time',
+        location: 'Remoto'
+    },
+    {
+        id: '5',
+        title: 'Head de Growth (B2B)',
+        mission: 'Acelerar a aquisição de clientes corporativos para soluções de IA.',
+        responsibilities: '- Definir estratégia de Go-to-Market\n- Gerenciar funil de vendas\n- Otimizar CAC e LTV',
+        successIndicator: 'Crescimento de 3x na receita recorrente anual (ARR).',
+        okr: 'O: Expansão agressiva. KR: 50 novos logos Enterprise.',
+        status: 'active',
+        candidates: 20,
+        type: 'Full-time',
+        location: 'São Paulo, SP'
+    }
 ];
 
-const MOCK_TALENTS = [
+const MOCK_TALENTS: Talent[] = [
     {
         id: 't1',
         name: 'Nilson Silva',
@@ -127,42 +167,74 @@ const MOCK_TALENTS = [
         products: ['Formação', 'Gestor IA'],
         areas: ['Produto', 'Performance'],
         seniority: 'Pleno',
-        fixedSalary: '8000',
+        fixedSalary: 'R$ 8.000,00',
         avatar: 'https://i.pravatar.cc/150?u=nilson',
         rating: 0,
         tags: ['Agentes IA', 'Prompts', 'Automação']
     },
     {
         id: 't2',
-        name: 'Vitor Silva',
+        name: 'Rafaela Souza',
         role: 'Engenharia de Dados, Python Backend',
-        email: 'vitor.silva@example.com',
+        email: 'rafaela.souza@example.com',
         phone: '(48) 98888-8888',
         location: 'Florianópolis, SC',
         bio: 'Focado em estruturar data lakes para LLMs e pipelines de RAG.',
         products: ['Formação', 'Comunidade'],
         areas: ['Produto', 'Backoffice'],
         seniority: 'Sênior',
-        fixedSalary: '12000',
-        avatar: 'https://i.pravatar.cc/150?u=vitor',
+        fixedSalary: 'R$ 12.000,00',
+        avatar: 'https://i.pravatar.cc/150?u=rafaela',
         rating: 5,
         tags: ['Python', 'SQL', 'Data Engineering']
     },
     {
         id: 't3',
-        name: 'Ana Marques',
+        name: 'Ronaldo Marques',
         role: 'Copywriter & Prompt Designer',
-        email: 'ana.marques@example.com',
+        email: 'ronaldo.marques@example.com',
         phone: '(21) 97777-7777',
         location: 'Rio de Janeiro, RJ',
         bio: 'Copywriter sênior migrando para IA. Cria personas complexas e fluxos de conversa naturais.',
         products: ['80/20', 'Mente Lendária'],
         areas: ['Marketing', 'Comercial'],
         seniority: 'Sênior',
-        fixedSalary: '10000',
-        avatar: 'https://i.pravatar.cc/150?u=ana',
+        fixedSalary: 'R$ 10.000,00',
+        avatar: 'https://i.pravatar.cc/150?u=ronaldo',
         rating: 4,
         tags: ['Copywriting', 'Storytelling', 'Prompting']
+    },
+    {
+        id: 't4',
+        name: 'Luciana Pereira',
+        role: 'Desenvolvedor Full Stack',
+        email: 'luciana.pereira@example.com',
+        phone: '(31) 99988-7766',
+        location: 'Belo Horizonte, MG',
+        bio: 'Apaixonado por criar sistemas escaláveis. Experiência com Node.js, React e integração com APIs da OpenAI.',
+        products: ['Gestor IA', 'Comunidade'],
+        areas: ['Produto', 'Suporte Técnico'],
+        seniority: 'Pleno',
+        fixedSalary: 'R$ 9.000,00',
+        avatar: 'https://i.pravatar.cc/150?u=luciana',
+        rating: 4,
+        tags: ['React', 'Node.js', 'API Integration']
+    },
+    {
+        id: 't5',
+        name: 'Fernando Souza',
+        role: 'UX/UI Designer',
+        email: 'fernando.souza@example.com',
+        phone: '(51) 98765-4321',
+        location: 'Porto Alegre, RS',
+        bio: 'Especialista em criar experiências de usuário intuitivas para ferramentas complexas. Foco em acessibilidade e design system.',
+        products: ['Mente Lendária', 'Formação'],
+        areas: ['Produto', 'Marketing'],
+        seniority: 'Sênior',
+        fixedSalary: 'R$ 11.000,00',
+        avatar: 'https://i.pravatar.cc/150?u=fernando',
+        rating: 5,
+        tags: ['Figma', 'Design System', 'User Research']
     }
 ];
 
@@ -271,243 +343,255 @@ Candidato exala os valores de "AI First" e "Excelência". Pontuação alta nos p
 
 // --- SUB-COMPONENTS ---
 
-const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void, onViewJobs: () => void }> = ({ onApply, onViewTalents, onViewJobs }) => (
-    <div className="space-y-0 animate-fade-in pb-20 bg-background min-h-screen font-sans text-foreground overflow-x-hidden">
+const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void, onViewJobs: () => void, onCandidateLogin: () => void }> = ({ onApply, onViewTalents, onViewJobs, onCandidateLogin }) => {
+    // Hack to expose trigger to header (simpler than prop drilling through header structure if complex)
+    // Actually, checking structure: Header is inside LandingView, so we can just use the prop.
+    (window as any).triggerCandidateLogin = onCandidateLogin;
 
-        {/* Responsive Container Wrapper for Large Screens */}
-        <div className="w-full max-w-[1920px] mx-auto relative shadow-2xl shadow-black">
+    return (
+        <div className="space-y-0 animate-fade-in pb-20 bg-background min-h-screen font-sans text-foreground overflow-x-hidden">
 
-            {/* Minimalist Header */}
-            <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-background/80 backdrop-blur-md border-b border-border dark:border-white/5">
-                <div className="text-xl font-bold tracking-tight text-foreground">
-                    Lendár<span className="text-brand-gold">[IA]</span>
-                </div>
-                <nav className="hidden md:flex gap-8 text-sm font-medium tracking-wide">
-                    <a href="#manto" className="hover:text-brand-gold transition-colors">QUEM VESTE O MANTO</a>
-                    <a href="#mandamentos" className="hover:text-brand-gold transition-colors">10 MANDAMENTOS</a>
-                    <a href="#beneficios" className="hover:text-brand-gold transition-colors">BENEFÍCIOS</a>
-                </nav>
-                <Button variant="ghost" className="text-xs font-semibold mr-4 hover:bg-transparent hover:text-brand-orange" onClick={onViewJobs}>
-                    VAGAS DISPONÍVEIS
-                </Button>
-                <Button variant="ghost" className="text-xs text-muted-foreground hover:text-black dark:hover:text-white mr-4" onClick={onViewTalents}>
-                    AREA DO RECRUTADOR
-                </Button>
-                <div className="flex items-center">
-                    <ThemeToggle />
-                </div>
-            </header>
+            {/* Responsive Container Wrapper for Large Screens */}
+            <div className="w-full max-w-[1920px] mx-auto relative shadow-2xl shadow-black">
 
-            {/* HERO / INTRO SECTION */}
-            <section className="pt-40 pb-20 px-6 max-w-4xl mx-auto text-center space-y-12">
-                <div className="space-y-6">
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-foreground drop-shadow-xl">
-                        Trabalhe na <br />
-                        <span className="text-brand-gold relative inline-block">
-                            Academia Lendária
-                            <span className="absolute inset-0 blur-3xl bg-brand-gold/20 -z-10"></span>
-                        </span>
-                    </h1>
+                {/* Minimalist Header */}
+                <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-background/80 backdrop-blur-md border-b border-border dark:border-white/5">
+                    <div className="text-xl font-bold tracking-tight text-foreground">
+                        Lendár<span className="text-brand-gold">[IA]</span>
+                    </div>
+                    <nav className="hidden md:flex gap-8 text-sm font-medium tracking-wide">
+                        <a href="#manto" className="hover:text-brand-gold transition-colors">QUEM VESTE O MANTO</a>
+                        <a href="#mandamentos" className="hover:text-brand-gold transition-colors">10 MANDAMENTOS</a>
+                        <a href="#beneficios" className="hover:text-brand-gold transition-colors">BENEFÍCIOS</a>
+                    </nav>
+                    <Button variant="ghost" className="text-xs font-semibold mr-4 hover:bg-transparent hover:text-brand-orange" onClick={onViewJobs}>
+                        VAGAS DISPONÍVEIS
+                    </Button>
 
-                    <div className="space-y-8 text-lg md:text-xl font-serif text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                        <p>
-                            Por 200 mil anos fomos reféns da biologia.
-                        </p>
-                        <p className="text-foreground font-sans font-medium text-2xl">
-                            Agora, na era da IA, chegou a hora de transcender.
-                        </p>
-                        <p>
-                            A Academia Lendária é um ecossistema de educação e inovação em IA generativa aplicada a negócios. Nossa missão é direta: <strong className="text-foreground">unir e potencializar pessoas lendárias com IA pra construir soluções e negócios que beneficiem a humanidade.</strong> E nossa visão é ambiciosa: ser referência mundial nisso, com startups de impacto real.
-                        </p>
-                        <div className="py-8">
-                            <p className="text-2xl font-bold text-foreground font-sans">
-                                Aqui não entra gente pra “preencher vaga”.<br />
-                                Entra gente pra <span className="text-brand-orange">mudar o jogo</span>.
+                    {/* Public Candidate Area Button */}
+                    <Button variant="ghost" className="text-xs font-semibold mr-4 hover:bg-transparent hover:text-brand-orange" onClick={() => (window as any).triggerCandidateLogin && (window as any).triggerCandidateLogin()}>
+                        ÁREA DO CANDIDATO
+                    </Button>
+
+                    <Button variant="ghost" className="text-xs text-muted-foreground hover:text-black dark:hover:text-white mr-4" onClick={onViewTalents}>
+                        AREA DO RECRUTADOR
+                    </Button>
+                    <div className="flex items-center">
+                        <ThemeToggle />
+                    </div>
+                </header>
+
+                {/* HERO / INTRO SECTION */}
+                <section className="pt-40 pb-20 px-6 max-w-4xl mx-auto text-center space-y-12">
+                    <div className="space-y-6">
+                        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-foreground drop-shadow-xl">
+                            Trabalhe na <br />
+                            <span className="text-brand-gold relative inline-block">
+                                Academia Lendária
+                                <span className="absolute inset-0 blur-3xl bg-brand-gold/20 -z-10"></span>
+                            </span>
+                        </h1>
+
+                        <div className="space-y-8 text-lg md:text-xl font-serif text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                            <p>
+                                Por 200 mil anos fomos reféns da biologia.
+                            </p>
+                            <p className="text-foreground font-sans font-medium text-2xl">
+                                Agora, na era da IA, chegou a hora de transcender.
+                            </p>
+                            <p>
+                                A Academia Lendária é um ecossistema de educação e inovação em IA generativa aplicada a negócios. Nossa missão é direta: <strong className="text-foreground">unir e potencializar pessoas lendárias com IA pra construir soluções e negócios que beneficiem a humanidade.</strong> E nossa visão é ambiciosa: ser referência mundial nisso, com startups de impacto real.
+                            </p>
+                            <div className="py-8">
+                                <p className="text-2xl font-bold text-foreground font-sans">
+                                    Aqui não entra gente pra “preencher vaga”.<br />
+                                    Entra gente pra <span className="text-brand-orange">mudar o jogo</span>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="w-px h-24 bg-gradient-to-b from-brand-gold to-transparent mx-auto opacity-50"></div>
+                </section>
+
+                {/* QUEM VESTE O MANTO */}
+                <section id="manto" className="relative py-24 px-6 border-y border-white/5 overflow-hidden group">
+                    {/* Background Image & Overlay */}
+                    <div
+                        className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                        style={{
+                            backgroundImage: `url('/team-hero.jpg')`
+                        }}
+                    ></div>
+                    <div className="absolute inset-0 z-10 bg-black/80"></div>
+
+                    <div className="relative z-20 max-w-4xl mx-auto space-y-12 text-center md:text-left">
+                        <h2 className="text-3xl md:text-4xl font-bold font-sans flex flex-col md:flex-row items-center gap-3 justify-center md:justify-start text-white">
+                            <Symbol name="star" className="text-brand-gold h-8 w-8" />
+                            Quem veste o manto de Lendário
+                        </h2>
+
+                        <div className="space-y-8 text-lg font-serif text-zinc-300 leading-loose">
+                            <p>
+                                A gente busca quem eleva o time inteiro.
+                            </p>
+                            <p>
+                                Lendário de verdade tem <strong className="text-brand-gold">curiosidade insaciável</strong>, resiliência pra jogo duro, altruísmo de time, visão com bom senso, sinceridade radical, criatividade disruptiva, coragem pra desafiar o status quo e autonomia responsável.
+                            </p>
+                            <p className="text-white font-sans font-medium italic">
+                                Se você se vê nisso, já entendeu o espírito.
                             </p>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div className="w-px h-24 bg-gradient-to-b from-brand-gold to-transparent mx-auto opacity-50"></div>
-            </section>
-
-            {/* QUEM VESTE O MANTO */}
-            <section id="manto" className="relative py-24 px-6 border-y border-white/5 overflow-hidden group">
-                {/* Background Image & Overlay */}
-                <div
-                    className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{
-                        backgroundImage: `url('/team-hero.jpg')`
-                    }}
-                ></div>
-                <div className="absolute inset-0 z-10 bg-black/80"></div>
-
-                <div className="relative z-20 max-w-4xl mx-auto space-y-12 text-center md:text-left">
-                    <h2 className="text-3xl md:text-4xl font-bold font-sans flex flex-col md:flex-row items-center gap-3 justify-center md:justify-start text-white">
-                        <Symbol name="star" className="text-brand-gold h-8 w-8" />
-                        Quem veste o manto de Lendário
-                    </h2>
-
-                    <div className="space-y-8 text-lg font-serif text-zinc-300 leading-loose">
-                        <p>
-                            A gente busca quem eleva o time inteiro.
-                        </p>
-                        <p>
-                            Lendário de verdade tem <strong className="text-brand-gold">curiosidade insaciável</strong>, resiliência pra jogo duro, altruísmo de time, visão com bom senso, sinceridade radical, criatividade disruptiva, coragem pra desafiar o status quo e autonomia responsável.
-                        </p>
-                        <p className="text-white font-sans font-medium italic">
-                            Se você se vê nisso, já entendeu o espírito.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            {/* 10 MANDAMENTOS */}
-            <section id="mandamentos" className="py-24 px-6 max-w-7xl mx-auto space-y-16">
-                <div className="text-center space-y-4">
-                    <h2 className="text-3xl md:text-5xl font-bold font-sans">Como trabalhamos</h2>
-                    <p className="font-serif text-xl text-muted-foreground max-w-2xl mx-auto">
-                        Nada de regra pra tudo. A gente segue os <strong className="text-brand-gold">10 Mandamentos Lendários</strong>:
-                    </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                    {[
-                        "Pessoas acima de processos",
-                        "Contexto, não controle",
-                        "Liberdade com responsabilidade",
-                        "Excelência sem desculpas",
-                        "Inovação constante",
-                        "Transparência radical",
-                        "Impacto transformador",
-                        "Adaptabilidade exponencial",
-                        "Ética inabalável",
-                        "Propósito maior"
-                    ].map((item, i) => (
-                        <div key={i} className="group relative p-6 h-64 bg-white/50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-white/5 rounded-2xl overflow-hidden hover:border-brand-gold/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-gold/10 flex flex-col justify-between">
-                            {/* Background Gradient on Hover */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/0 to-brand-gold/0 group-hover:from-brand-gold/5 group-hover:to-transparent transition-all duration-500"></div>
-
-                            {/* Number */}
-                            <span className="text-5xl md:text-6xl font-serif font-bold text-zinc-200 dark:text-white/5 group-hover:text-brand-gold/20 transition-colors duration-500 select-none">
-                                {i + 1}
-                            </span>
-
-                            {/* Text */}
-                            <div className="relative z-10">
-                                <h3 className="text-lg lg:text-base xl:text-xl font-bold font-sans text-foreground dark:text-zinc-100 group-hover:text-brand-gold transition-colors duration-300 leading-tight">
-                                    {item}
-                                </h3>
-                                <div className="w-8 h-1 bg-brand-orange mt-4 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="p-8 mt-12 bg-white/80 dark:bg-gradient-to-r dark:from-zinc-950 dark:to-zinc-900 border border-zinc-200 dark:border-white/10 rounded-2xl text-center max-w-3xl mx-auto shadow-lg">
-                    <p className="text-xl font-serif text-zinc-600 dark:text-zinc-300">
-                        Princípio simples: <strong className="text-brand-gold">aja como um Lendário</strong> — se todo mundo fizesse o que você vai fazer, a Academia ficaria mais forte?
-                    </p>
-                </div>
-            </section>
-
-            {/* BENEFÍCIOS */}
-            <section id="beneficios" className="py-24 px-6 bg-zinc-50/50 dark:bg-zinc-950/50">
-                <div className="max-w-7xl mx-auto space-y-16">
+                {/* 10 MANDAMENTOS */}
+                <section id="mandamentos" className="py-24 px-6 max-w-7xl mx-auto space-y-16">
                     <div className="text-center space-y-4">
-                        <h2 className="text-3xl md:text-5xl font-bold font-sans">O que você encontra aqui</h2>
+                        <h2 className="text-3xl md:text-5xl font-bold font-sans">Como trabalhamos</h2>
                         <p className="font-serif text-xl text-muted-foreground max-w-2xl mx-auto">
-                            Mais do que benefícios, entregamos um estilo de vida <span className="text-brand-gold">Lendário</span>.
+                            Nada de regra pra tudo. A gente segue os <strong className="text-brand-gold">10 Mandamentos Lendários</strong>:
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                         {[
-                            {
-                                icon: Laptop,
-                                text: "Atuação 100% remota, com a Mansão Lendária em Floripa pra visitar."
-                            },
-                            {
-                                icon: Zap,
-                                text: "Acesso premium/pro às melhores ferramentas de IA."
-                            },
-                            {
-                                icon: Users2,
-                                text: "Trabalho lado a lado com professores e um time que vive o dia a dia."
-                            },
-                            {
-                                icon: Palmtree,
-                                text: "Descanso Programado depois de 8 meses de contrato."
-                            },
-                            {
-                                icon: Cake,
-                                text: "Day off no aniversário."
-                            },
-                            {
-                                icon: Ticket,
-                                text: "Acesso gratuito aos nossos eventos."
-                            },
-                            {
-                                icon: Gamepad2,
-                                text: "Gamificações interativas entre a equipe."
-                            },
-                            {
-                                icon: GraduationCap,
-                                text: "Acesso vitalício à Formação Lendária e à Comunidade."
-                            },
-                            {
-                                icon: Gift,
-                                text: "Kit aniver."
-                            },
-                            {
-                                icon: Rocket,
-                                text: "Experiências Lendárias ao longo da jornada."
-                            }
+                            "Pessoas acima de processos",
+                            "Contexto, não controle",
+                            "Liberdade com responsabilidade",
+                            "Excelência sem desculpas",
+                            "Inovação constante",
+                            "Transparência radical",
+                            "Impacto transformador",
+                            "Adaptabilidade exponencial",
+                            "Ética inabalável",
+                            "Propósito maior"
                         ].map((item, i) => (
-                            <div key={i} className="group p-6 bg-white/60 dark:bg-zinc-900/40 border border-zinc-200 dark:border-white/5 rounded-2xl flex flex-col items-center text-center gap-4 transition-all duration-300 hover:bg-white dark:hover:bg-white/5 hover:-translate-y-1 hover:border-brand-gold/20 hover:shadow-xl hover:shadow-brand-gold/5">
-                                <div className="p-4 rounded-full bg-brand-gold/10 text-brand-gold group-hover:scale-110 group-hover:bg-brand-gold group-hover:text-black transition-all duration-300">
-                                    <item.icon className="h-6 w-6" strokeWidth={1.5} />
+                            <div key={i} className="group relative p-6 h-64 bg-white/50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-white/5 rounded-2xl overflow-hidden hover:border-brand-gold/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-gold/10 flex flex-col justify-between">
+                                {/* Background Gradient on Hover */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/0 to-brand-gold/0 group-hover:from-brand-gold/5 group-hover:to-transparent transition-all duration-500"></div>
+
+                                {/* Number */}
+                                <span className="text-5xl md:text-6xl font-serif font-bold text-zinc-200 dark:text-white/5 group-hover:text-brand-gold/20 transition-colors duration-500 select-none">
+                                    {i + 1}
+                                </span>
+
+                                {/* Text */}
+                                <div className="relative z-10">
+                                    <h3 className="text-lg lg:text-base xl:text-xl font-bold font-sans text-foreground dark:text-zinc-100 group-hover:text-brand-gold transition-colors duration-300 leading-tight">
+                                        {item}
+                                    </h3>
+                                    <div className="w-8 h-1 bg-brand-orange mt-4 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
                                 </div>
-                                <p className="text-sm md:text-base font-medium text-zinc-600 dark:text-zinc-300 group-hover:text-foreground dark:group-hover:text-white transition-colors">
-                                    {item.text}
-                                </p>
                             </div>
                         ))}
                     </div>
-                </div>
-            </section>
 
-            {/* FOOTER CTA */}
-            <section className="py-32 px-6 text-center space-y-10 bg-gradient-to-b from-transparent to-brand-gold/5">
-                <p className="text-2xl md:text-3xl font-serif max-w-3xl mx-auto text-muted-foreground">
-                    Se você quer fazer parte de uma comunidade que não assiste o futuro — <strong className="text-foreground">constrói</strong> — então é aqui.
-                </p>
-                <h2 className="text-5xl md:text-7xl font-sans font-bold tracking-tighter text-foreground">
-                    Movimento <span className="text-brand-gold">Lendário</span>.
-                    <span className="block text-2xl md:text-3xl mt-4 font-normal text-muted-foreground tracking-normal font-serif">Construindo o infinito, hoje.</span>
-                </h2>
-                <div className="pt-12 flex flex-col md:flex-row gap-6 justify-center">
-                    <Button
-                        size="lg"
-                        className="h-16 px-12 rounded-full text-lg font-bold bg-brand-orange hover:bg-brand-orange-dark text-white shadow-xl shadow-brand-orange/20 hover:scale-105 transition-all duration-300"
-                        onClick={onApply}
-                    >
-                        FAÇA PARTE DO TIME
-                    </Button>
-                    <Button
-                        size="lg"
-                        variant="outline"
-                        className="h-16 px-12 rounded-full text-lg font-bold border-2 border-foreground hover:bg-foreground hover:text-background transition-all duration-300"
-                        onClick={onViewJobs}
-                    >
-                        VAGAS DISPONÍVEIS
-                    </Button>
-                </div>
-            </section>
+                    <div className="p-8 mt-12 bg-white/80 dark:bg-gradient-to-r dark:from-zinc-950 dark:to-zinc-900 border border-zinc-200 dark:border-white/10 rounded-2xl text-center max-w-3xl mx-auto shadow-lg">
+                        <p className="text-xl font-serif text-zinc-600 dark:text-zinc-300">
+                            Princípio simples: <strong className="text-brand-gold">aja como um Lendário</strong> — se todo mundo fizesse o que você vai fazer, a Academia ficaria mais forte?
+                        </p>
+                    </div>
+                </section>
 
+                {/* BENEFÍCIOS */}
+                <section id="beneficios" className="py-24 px-6 bg-zinc-50/50 dark:bg-zinc-950/50">
+                    <div className="max-w-7xl mx-auto space-y-16">
+                        <div className="text-center space-y-4">
+                            <h2 className="text-3xl md:text-5xl font-bold font-sans">O que você encontra aqui</h2>
+                            <p className="font-serif text-xl text-muted-foreground max-w-2xl mx-auto">
+                                Mais do que benefícios, entregamos um estilo de vida <span className="text-brand-gold">Lendário</span>.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                            {[
+                                {
+                                    icon: Laptop,
+                                    text: "Atuação 100% remota, com a Mansão Lendária em Floripa pra visitar."
+                                },
+                                {
+                                    icon: Zap,
+                                    text: "Acesso premium/pro às melhores ferramentas de IA."
+                                },
+                                {
+                                    icon: Users2,
+                                    text: "Trabalho lado a lado com professores e um time que vive o dia a dia."
+                                },
+                                {
+                                    icon: Palmtree,
+                                    text: "Descanso Programado depois de 8 meses de contrato."
+                                },
+                                {
+                                    icon: Cake,
+                                    text: "Day off no aniversário."
+                                },
+                                {
+                                    icon: Ticket,
+                                    text: "Acesso gratuito aos nossos eventos."
+                                },
+                                {
+                                    icon: Gamepad2,
+                                    text: "Gamificações interativas entre a equipe."
+                                },
+                                {
+                                    icon: GraduationCap,
+                                    text: "Acesso vitalício à Formação Lendária e à Comunidade."
+                                },
+                                {
+                                    icon: Gift,
+                                    text: "Kit aniver."
+                                },
+                                {
+                                    icon: Rocket,
+                                    text: "Experiências Lendárias ao longo da jornada."
+                                }
+                            ].map((item, i) => (
+                                <div key={i} className="group p-6 bg-white/60 dark:bg-zinc-900/40 border border-zinc-200 dark:border-white/5 rounded-2xl flex flex-col items-center text-center gap-4 transition-all duration-300 hover:bg-white dark:hover:bg-white/5 hover:-translate-y-1 hover:border-brand-gold/20 hover:shadow-xl hover:shadow-brand-gold/5">
+                                    <div className="p-4 rounded-full bg-brand-gold/10 text-brand-gold group-hover:scale-110 group-hover:bg-brand-gold group-hover:text-black transition-all duration-300">
+                                        <item.icon className="h-6 w-6" strokeWidth={1.5} />
+                                    </div>
+                                    <p className="text-sm md:text-base font-medium text-zinc-600 dark:text-zinc-300 group-hover:text-foreground dark:group-hover:text-white transition-colors">
+                                        {item.text}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* FOOTER CTA */}
+                <section className="py-32 px-6 text-center space-y-10 bg-gradient-to-b from-transparent to-brand-gold/5">
+                    <p className="text-2xl md:text-3xl font-serif max-w-3xl mx-auto text-muted-foreground">
+                        Se você quer fazer parte de uma comunidade que não assiste o futuro — <strong className="text-foreground">constrói</strong> — então é aqui.
+                    </p>
+                    <h2 className="text-5xl md:text-7xl font-sans font-bold tracking-tighter text-foreground">
+                        Movimento <span className="text-brand-gold">Lendário</span>.
+                        <span className="block text-2xl md:text-3xl mt-4 font-normal text-muted-foreground tracking-normal font-serif">Construindo o infinito, hoje.</span>
+                    </h2>
+                    <div className="pt-12 flex flex-col md:flex-row gap-6 justify-center">
+                        <Button
+                            size="lg"
+                            className="h-16 px-12 rounded-full text-lg font-bold bg-brand-orange hover:bg-brand-orange-dark text-white shadow-xl shadow-brand-orange/20 hover:scale-105 transition-all duration-300"
+                            onClick={onApply}
+                        >
+                            FAÇA PARTE DO TIME
+                        </Button>
+                        <Button
+                            size="lg"
+                            variant="outline"
+                            className="h-16 px-12 rounded-full text-lg font-bold border-2 border-foreground hover:bg-foreground hover:text-background transition-all duration-300"
+                            onClick={onViewJobs}
+                        >
+                            VAGAS DISPONÍVEIS
+                        </Button>
+                    </div>
+                </section>
+
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 const PublicJobsView: React.FC<{ jobs: Job[], onRegister: () => void, onBack: () => void }> = ({ jobs, onRegister, onBack }) => (
     <div className="min-h-screen bg-background text-foreground animate-fade-in pb-20">
@@ -714,6 +798,9 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) 
     const profileInputRef = useRef<HTMLInputElement>(null);
 
     // Form State
+    const [password, setPassword] = useState("");
+
+    // Form State
     const [formData, setFormData] = useState({
         name: initialData?.name || '',
         email: initialData?.email || '',
@@ -759,8 +846,8 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) 
                     <Icon name="arrow-left" />
                 </Button>
                 <div>
-                    <h2 className="text-3xl font-sans font-bold">Cadastro de Talento</h2>
-                    <p className="text-muted-foreground font-serif">Entre para o banco de talentos da Academia Lendária.</p>
+                    <h2 className="text-3xl font-sans font-bold">{isEditing ? 'Editar Perfil' : 'Cadastro de Talento'}</h2>
+                    <p className="text-muted-foreground font-serif">{isEditing ? 'Atualize suas informações.' : 'Entre para o banco de talentos da Academia Lendária.'}</p>
                 </div>
             </div>
 
@@ -808,8 +895,23 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) 
                             </div>
                             <div className="space-y-2">
                                 <Label>Email <span className="text-destructive">*</span></Label>
-                                <Input placeholder="seu@email.com" type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} />
+                                <Input placeholder="seu@email.com" type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} disabled={isEditing} />
                             </div>
+
+                            {/* Password Field - Only for new registrations */}
+                            {!isEditing && (
+                                <div className="space-y-2 md:col-span-2">
+                                    <Label>Senha de Acesso <span className="text-destructive">*</span></Label>
+                                    <Input
+                                        placeholder="Crie sua senha segura"
+                                        type="password"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                    <p className="text-xs text-muted-foreground">Usada para acessar sua Área do Candidato.</p>
+                                </div>
+                            )}
+
                             <div className="space-y-2">
                                 <Label>Telefone (WhatsApp) <span className="text-destructive">*</span></Label>
                                 <Input placeholder="(00) 00000-0000" value={formData.phone} onChange={e => handleInputChange('phone', e.target.value)} />
@@ -941,7 +1043,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) 
                 </CardContent>
                 <CardFooter className="flex justify-end gap-4 p-8 bg-muted/10 border-t border-border">
                     {!isEditing && <Button variant="ghost" onClick={onCancel}>Cancelar</Button>}
-                    <Button className="bg-brand-orange hover:bg-brand-orange-dark text-white px-8" onClick={() => onSubmit({ ...formData, products: selectedProducts, areas: selectedAreas, seniority, profileImage })}>
+                    <Button className="bg-brand-orange hover:bg-brand-orange-dark text-white px-8" onClick={() => onSubmit({ ...formData, products: selectedProducts, areas: selectedAreas, seniority, profileImage, password })}>
                         {isEditing ? 'Salvar Alterações' : 'Finalizar Cadastro'}
                     </Button>
                 </CardFooter>
@@ -950,6 +1052,54 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) 
     );
 };
 
+
+const CandidateLoginView: React.FC<{ onLogin: (data: any) => void, onCancel: () => void }> = ({ onLogin, onCancel }) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        await onLogin({ email, password });
+        setIsLoading(false);
+    };
+
+    return (
+        <div className="min-h-screen flex items-center justify-center p-6 bg-background animate-fade-in">
+            <Card className="w-full max-w-md">
+                <CardHeader className="space-y-1">
+                    <CardTitle className="text-2xl font-bold flex items-center gap-2">
+                        <Icon name="user-circle" className="text-brand-orange" /> Área do Candidato
+                    </CardTitle>
+                    <CardDescription>
+                        Entre com seu email e senha para gerenciar suas candidaturas.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="email">Email</Label>
+                            <Input id="email" type="email" placeholder="m@example.com" value={email} onChange={e => setEmail(e.target.value)} required />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="password">Senha</Label>
+                            <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
+                        </div>
+                        <Button type="submit" className="w-full bg-brand-orange hover:bg-brand-orange-dark text-white" disabled={isLoading}>
+                            {isLoading ? "Entrando..." : "Entrar"}
+                        </Button>
+                    </form>
+                </CardContent>
+                <CardFooter className="justify-center">
+                    <Button variant="link" onClick={onCancel}>
+                        Voltar para a home
+                    </Button>
+                </CardFooter>
+            </Card>
+        </div>
+    );
+};
 
 const AdminNewJobView: React.FC<{ onSave: (job: Job) => void, onCancel: () => void, initialData?: Job | null }> = ({ onSave, onCancel, initialData }) => {
     const [formData, setFormData] = useState<Partial<Job>>(initialData || { status: 'active' });
@@ -1527,8 +1677,12 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
 
     // Fetch Initial Data
     useEffect(() => {
-        fetchJobs();
-        fetchTalents();
+        // Use Mock Data instead of Supabase
+        setJobs(INITIAL_JOBS);
+        setTalents(MOCK_TALENTS);
+
+        // fetchJobs();
+        // fetchTalents();
     }, []);
 
     const fetchJobs = async () => {
@@ -1633,16 +1787,37 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
             return;
         }
 
-        // 1. Create UUID
-        const newId = crypto.randomUUID();
+        // 1. Create User in Supabase Auth (if new)
+        let userId = currentCandidate?.id;
 
-        // 2. Insert Profile
-        const { error: profileError } = await supabase.from('profiles').insert({
-            id: newId,
+        if (!currentCandidate) {
+            // Sign Up Logic
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+                email: data.email,
+                password: data.password,
+            });
+
+            if (authError) {
+                console.error('Error signing up:', authError);
+                alert('Erro ao criar conta: ' + authError.message);
+                return;
+            }
+
+            userId = authData.user?.id;
+
+            if (!userId) {
+                alert("Erro inesperado: ID de usuário não retornado pelo Supabase.");
+                return;
+            }
+        }
+
+        // 2. Insert/Update Profile
+        const { error: profileError } = await supabase.from('profiles').upsert({
+            id: userId,
             email: data.email,
             full_name: data.name,
             role: 'talent',
-            avatar_url: data.profileImage || `https://i.pravatar.cc/150?u=${newId}`
+            avatar_url: data.profileImage || `https://i.pravatar.cc/150?u=${userId}`
         });
 
         if (profileError) {
@@ -1651,14 +1826,14 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
             return;
         }
 
-        // 3. Insert Talent
+        // 3. Insert/Update Talent
         // Parse location
         const locationParts = data.location.split('-');
         const city = locationParts[0]?.trim() || data.location;
         const state = locationParts[1]?.trim() || '';
 
-        const { error: talentError } = await supabase.from('talents').insert({
-            id: newId,
+        const { error: talentError } = await supabase.from('talents').upsert({
+            id: userId,
             phone: data.phone,
             location_city: city,
             location_state: state,
@@ -1673,11 +1848,11 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
             console.error('Error creating talent:', talentError);
             alert('Erro ao cadastrar talento: ' + talentError.message);
         } else {
-            alert('Cadastro realizado com sucesso! Bem-vindo à sua área.');
+            alert(currentCandidate ? 'Perfil atualizado!' : 'Cadastro realizado com sucesso! Bem-vindo à sua área.');
 
             // Set current candidate state to auto-login
             setCurrentCandidate({
-                id: newId,
+                id: userId,
                 name: data.name,
                 role: data.functions,
                 email: data.email,
@@ -1688,13 +1863,15 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
                 areas: data.areas,
                 seniority: data.seniority,
                 fixedSalary: data.salary,
-                avatar: data.profileImage || `https://i.pravatar.cc/150?u=${newId}`,
+                avatar: data.profileImage || `https://i.pravatar.cc/150?u=${userId}`,
                 rating: 0,
                 tags: [...data.areas, ...data.products]
             });
 
+            // If we are editing, we are already in dashboard or view, just close logic or refresh
+            // If registering, go to dashboard
             fetchTalents();
-            setView('candidate-dashboard'); // Redirect to dashboard
+            setView('candidate-dashboard');
         }
     };
 
@@ -1715,8 +1892,64 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
     };
 
     // --- VIEW ROUTING ---
+
+    const handleCandidateLogin = async (credentials: any) => {
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: credentials.email,
+            password: credentials.password,
+        });
+
+        if (error) {
+            alert("Erro ao entrar: " + error.message);
+            return;
+        }
+
+        if (data.user) {
+            // Fetch candidate profile details
+            const { data: talentData, error: talentError } = await supabase
+                .from('talents')
+                .select('*, profiles(*)') // Assuming relationship or just matching IDs
+                .eq('id', data.user.id)
+                .single();
+
+            // Note: If you don't have FK relationship setup in Supabase, you might need two queries or rely on the fact that IDs are same.
+
+            // For resilience, let's just fetch from talents. If profiles data is needed, we query it too.
+            // But 'talents' table seems to have most info in current schema except name/email which might be in profiles or auth.
+
+            // Re-fetch profile to get name/avatar
+            const { data: profileData } = await supabase.from('profiles').select('*').eq('id', data.user.id).single();
+
+            if (talentData) {
+                setCurrentCandidate({
+                    id: talentData.id,
+                    name: profileData?.full_name || data.user.email, // Fallback
+                    role: 'Candidato', // Or derive from bio/tag
+                    email: data.user.email || '',
+                    phone: talentData.phone,
+                    location: `${talentData.location_city} - ${talentData.location_state}`,
+                    bio: talentData.bio,
+                    products: talentData.tags?.filter((t: string) => ACADEMY_PRODUCTS.includes(t)) || [], // approximate
+                    areas: talentData.tags?.filter((t: string) => INTEREST_AREAS.includes(t)) || [],
+                    seniority: talentData.seniority || 'Pleno', // Default
+                    fixedSalary: talentData.hourly_rate || '',
+                    avatar: profileData?.avatar_url || '',
+                    rating: 0,
+                    tags: talentData.tags || []
+                });
+                setView('candidate-dashboard');
+            } else {
+                alert("Perfil de candidato não encontrado.");
+            }
+        }
+    };
+
     if (view === 'public-jobs') {
         return <PublicJobsView jobs={jobs} onBack={() => setView('landing')} onRegister={() => setView('candidate-register')} />;
+    }
+
+    if (view === 'candidate-login') {
+        return <CandidateLoginView onLogin={handleCandidateLogin} onCancel={() => setView('landing')} />;
     }
 
     if (view === 'candidate-dashboard' && currentCandidate) {
@@ -1730,7 +1963,7 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
 
     if (view === 'landing') {
         // Redirect to admin view (which handles login) when asking to see talents
-        return <LandingView onApply={() => setView('candidate-register')} onViewTalents={() => setView('admin')} onViewJobs={() => setView('public-jobs')} />;
+        return <LandingView onApply={() => setView('candidate-register')} onViewTalents={() => setView('admin')} onViewJobs={() => setView('public-jobs')} onCandidateLogin={() => setView('candidate-login')} />;
     }
 
     // 2. Admin Views (Protected)
