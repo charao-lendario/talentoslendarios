@@ -941,8 +941,8 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) 
 };
 
 
-const AdminNewJobView: React.FC<{ onSave: (job: Job) => void, onCancel: () => void }> = ({ onSave, onCancel }) => {
-    const [formData, setFormData] = useState<Partial<Job>>({ status: 'active' });
+const AdminNewJobView: React.FC<{ onSave: (job: Job) => void, onCancel: () => void, initialData?: Job | null }> = ({ onSave, onCancel, initialData }) => {
+    const [formData, setFormData] = useState<Partial<Job>>(initialData || { status: 'active' });
 
     return (
         <div className="max-w-3xl mx-auto animate-fade-in space-y-8">
@@ -950,7 +950,7 @@ const AdminNewJobView: React.FC<{ onSave: (job: Job) => void, onCancel: () => vo
                 <Button variant="ghost" size="icon" onClick={onCancel}>
                     <Icon name="arrow-left" />
                 </Button>
-                <h2 className="text-3xl font-sans font-bold">Nova Vaga</h2>
+                <h2 className="text-3xl font-sans font-bold">{initialData ? 'Editar Vaga' : 'Nova Vaga'}</h2>
             </div>
 
             <Card>
@@ -1008,9 +1008,9 @@ const AdminNewJobView: React.FC<{ onSave: (job: Job) => void, onCancel: () => vo
                     <Button variant="ghost" onClick={onCancel}>Cancelar</Button>
                     <Button
                         className="bg-brand-orange hover:bg-brand-orange-dark text-white"
-                        onClick={() => onSave({ ...formData, id: Math.random().toString(), candidates: 0 } as Job)}
+                        onClick={() => onSave({ ...formData, id: initialData?.id || Math.random().toString(), candidates: initialData?.candidates || 0 } as Job)}
                     >
-                        Publicar Vaga
+                        {initialData ? 'Salvar Alterações' : 'Publicar Vaga'}
                     </Button>
                 </CardFooter>
             </Card>
@@ -1019,7 +1019,7 @@ const AdminNewJobView: React.FC<{ onSave: (job: Job) => void, onCancel: () => vo
 };
 
 // --- JOB DETAIL VIEW (LIST OF CANDIDATES) ---
-const AdminJobDetailView: React.FC<{ job: Job, onBack: () => void, onViewTalent: (talent: Talent) => void }> = ({ job, onBack, onViewTalent }) => {
+const AdminJobDetailView: React.FC<{ job: Job, onBack: () => void, onViewTalent: (talent: Talent) => void, onEdit: () => void }> = ({ job, onBack, onViewTalent, onEdit }) => {
     // Mock simulation: Assign random scores to existing talents for this specific job
     const candidates = MOCK_TALENTS.map(t => ({
         ...t,
@@ -1042,7 +1042,8 @@ const AdminJobDetailView: React.FC<{ job: Job, onBack: () => void, onViewTalent:
                         </div>
                     </div>
                 </div>
-                <Button variant="outline" className="gap-2">
+                </div>
+                <Button variant="outline" className="gap-2" onClick={onEdit}>
                     <Icon name="pencil" /> Editar Vaga
                 </Button>
             </div>
@@ -1134,7 +1135,7 @@ const AdminJobDetailView: React.FC<{ job: Job, onBack: () => void, onViewTalent:
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
@@ -1546,23 +1547,48 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
     };
 
     const handleCreateJob = async (newJob: Job) => {
-        const { error } = await supabase.from('jobs').insert({
-            title: newJob.title,
-            mission: newJob.mission,
-            responsibilities: newJob.responsibilities,
-            success_indicator: newJob.successIndicator,
-            okr: newJob.okr,
-            status: 'active',
-            type: 'Remoto',
-            location: 'Brasil'
-        });
+        if (selectedJob && selectedJob.id === newJob.id) {
+            // Update
+            const { error } = await supabase.from('jobs').update({
+                title: newJob.title,
+                mission: newJob.mission,
+                responsibilities: newJob.responsibilities,
+                success_indicator: newJob.successIndicator,
+                okr: newJob.okr,
+                // status: newJob.status // Optional: allow status update
+            }).eq('id', newJob.id);
 
-        if (error) {
-            console.error('Error creating job:', error);
-            alert('Erro ao criar vaga.');
+            if (error) {
+                console.error('Error updating job:', error);
+                alert('Erro ao atualizar vaga.');
+            } else {
+                fetchJobs();
+                setView('admin-job-detail'); // Go back to details or admin
+                // Create a new object to force re-render if needed, although fetchJobs updates list. 
+                // We also need to update selectedJob or just rely on the list if we go back to admin.
+                // Let's go back to detail view with updated data:
+                setSelectedJob(newJob);
+            }
         } else {
-            fetchJobs(); // Refresh
-            setView('admin');
+            // Insert
+            const { error } = await supabase.from('jobs').insert({
+                title: newJob.title,
+                mission: newJob.mission,
+                responsibilities: newJob.responsibilities,
+                success_indicator: newJob.successIndicator,
+                okr: newJob.okr,
+                status: 'active',
+                type: 'Remoto',
+                location: 'Brasil'
+            });
+
+            if (error) {
+                console.error('Error creating job:', error);
+                alert('Erro ao criar vaga.');
+            } else {
+                fetchJobs(); // Refresh
+                setView('admin');
+            }
         }
     };
 
@@ -1684,7 +1710,7 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
     }
 
     if (view === 'admin-new-job') {
-        return <AdminNewJobView onSave={handleCreateJob} onCancel={() => setView('admin')} />;
+        return <AdminNewJobView onSave={handleCreateJob} onCancel={() => setView('admin')} initialData={selectedJob} />;
     }
 
     if (view === 'admin-talent-detail' && selectedTalent) {
@@ -1692,7 +1718,7 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
     }
 
     if (view === 'admin-job-detail' && selectedJob) {
-        return <AdminJobDetailView job={selectedJob} onBack={() => setView('admin')} onViewTalent={handleViewTalent} />;
+        return <AdminJobDetailView job={selectedJob} onBack={() => setView('admin')} onViewTalent={handleViewTalent} onEdit={() => setView('admin-new-job')} />;
     }
 
     // Default Admin View ('admin')
@@ -1712,7 +1738,7 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
                     </Button>
                     <Button
                         className="gap-2 bg-brand-orange hover:bg-brand-orange-dark text-white"
-                        onClick={() => setView('admin-new-job')}
+                        onClick={() => { setSelectedJob(null); setView('admin-new-job'); }}
                     >
                         <Icon name="plus" /> Nova Vaga
                     </Button>
