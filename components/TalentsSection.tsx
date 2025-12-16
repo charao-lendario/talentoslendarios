@@ -598,6 +598,13 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                                 <Label>Localização</Label>
                                 <Input placeholder="Cidade - UF" />
                             </div>
+                            <div className="space-y-2 md:col-span-2">
+                                <Label>LinkedIn <span className="text-destructive">*</span></Label>
+                                <div className="relative">
+                                    <Icon name="linkedin" className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground z-10" size="size-4" />
+                                    <Input placeholder="https://linkedin.com/in/seu-perfil" className="pl-10" />
+                                </div>
+                            </div>
                         </div>
                         <div className="space-y-2">
                             <Label>Breve Apresentação</Label>
@@ -711,8 +718,9 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                             <Icon name="document" className="text-brand-orange" /> Anexos
                         </h3>
                         <div className="space-y-2">
-                            <Label>Currículo ou Portfólio (PDF)</Label>
+                            <Label>Currículo ou Portfólio (PDF) <span className="text-destructive">*</span></Label>
                             <FileUpload accept=".pdf,.doc,.docx" />
+                            <p className="text-xs text-muted-foreground">O envio do currículo é obrigatório para participação.</p>
                         </div>
                     </div>
 
