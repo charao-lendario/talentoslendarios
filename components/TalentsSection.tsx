@@ -1493,6 +1493,19 @@ const LoginView: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
 };
 
 
+const formatSalary = (val: string | null) => {
+    if (!val) return 'A combinar';
+    // If already formatted (contains R$), return as is
+    if (val.toString().includes('R$')) return val;
+
+    // Try to parse number
+    const num = parseFloat(val.toString().replace(',', '.')); // Handle decimal comma if present in raw string
+    if (!isNaN(num)) {
+        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(num);
+    }
+    return val;
+};
+
 // --- MAIN COMPONENT ---
 
 const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing' }) => {
@@ -1545,7 +1558,7 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
                 products: [], // We didn't seed array fields well, or need Json parsing. Assuming empty for now or parse
                 areas: t.tags || [], // Using tags as areas
                 seniority: 'Pleno', // Default if missing
-                fixedSalary: t.hourly_rate || '',
+                fixedSalary: formatSalary(t.hourly_rate),
                 avatar: t.profile.avatar_url,
                 rating: 0,
                 tags: t.tags || []
