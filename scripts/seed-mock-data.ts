@@ -65,56 +65,6 @@ const JOBS_DATA = [
         status: 'active',
         type: 'Remoto',
         location: 'Florianópolis, SC'
-    },
-    {
-        title: 'Head de Growth Hacking',
-        mission: 'Acelerar a aquisição de novos alunos utilizando estratégias não convencionais e IA.',
-        responsibilities: '- Gerir tráfego pago\n- Otimizar SEO programático com IA\n- Criar viral loops no produto',
-        successIndicator: 'Crescimento de 15% WoW na base de leads qualificados.',
-        okr: 'O: Hipercrescimento. KR1: 10.000 novos leads/mês.',
-        status: 'active',
-        type: 'Híbrido',
-        location: 'São Paulo, SP'
-    },
-    {
-        title: 'Customer Success Manager (B2B)',
-        mission: 'Garantir que empresas parceiras extraiam valor máximo das nossas consultorias de IA.',
-        responsibilities: '- Onboarding de novos clientes\n- Resolução de dúvidas técnicas de IA\n- Upsell de mentorias',
-        successIndicator: 'Churn negativo (Net Revenue Retention > 110%).',
-        okr: 'O: Cliente Apaixonado. KR1: NPS 85+.',
-        status: 'active',
-        type: 'Remoto',
-        location: 'Brasil'
-    },
-    {
-        title: 'Editor de Vídeo & Motion (AI Tools)',
-        mission: 'Produzir conteúdo visual de alto impacto em escala usando ferramentas de IA.',
-        responsibilities: '- Edição de cortes para redes sociais\n- Geração de assets visuais com Midjourney\n- Clonagem de voz para tradução de conteúdo',
-        successIndicator: 'Dobrar o engajamento no Instagram e TikTok.',
-        okr: 'O: Domínio da Atenção. KR1: 5 vídeos virais (>100k views) no trimestre.',
-        status: 'draft',
-        type: 'Remoto',
-        location: 'Brasil'
-    },
-    {
-        title: 'Data Scientist (Foco em LLMs)',
-        mission: 'Afinar modelos de linguagem para casos de uso específicos da educação.',
-        responsibilities: '- Fine-tuning de modelos Open Source (Llama 3, Mistral)\n- Criação de Datasets de qualidade\n- Avaliação de performance de RAG',
-        successIndicator: 'Redução de alucinações da IA para < 5%.',
-        okr: 'O: IA Soberana. KR1: Deploy de modelo proprietário para correção de exercícios.',
-        status: 'paused',
-        type: 'Remoto',
-        location: 'Remoto'
-    },
-    {
-        title: 'Comunity Manager',
-        mission: 'Engajar a comunidade de alunos tornando-a o lugar mais vibrante sobre IA no Brasil.',
-        responsibilities: '- Moderação de Discord\n- Criação de desafios semanais\n- Curadoria de conteúdo de alunos',
-        successIndicator: 'DAU/MAU ratio superior a 40% na comunidade.',
-        okr: 'O: Comunidade Viva. KR1: 500 membros ativos diariamente.',
-        status: 'active',
-        type: 'Remoto',
-        location: 'Brasil'
     }
 ];
 
@@ -183,71 +133,6 @@ const TALENTS_DATA = [
         fixedSalary: '11000.00',
         avatar: 'https://i.pravatar.cc/150?u=eduardo',
         tags: ['React', 'Next.js', 'Typescript', 'Tailwind']
-    },
-    {
-        name: 'Fernanda Lima',
-        role: 'Gestora de Tráfego & Performance',
-        email: 'nanda.lima@mock.com',
-        phone: '(41) 94444-1006',
-        location: 'Curitiba, PR',
-        bio: 'Gerencio mais de 100k/mês em ads. Uso IA para analisar métricas e gerar criativos em massa. Focada em ROAS.',
-        products: ['80/20', 'Gestor IA'],
-        areas: ['Performance', 'Comercial'],
-        fixedSalary: '7000.00',
-        avatar: 'https://i.pravatar.cc/150?u=fernanda',
-        tags: ['Facebook Ads', 'Google Ads', 'Data Analysis', 'Excel']
-    },
-    {
-        name: 'Gabriel Costa',
-        role: 'Video Maker & Editor AI',
-        email: 'gabriel.costa@mock.com',
-        phone: '(51) 93333-1007',
-        location: 'Porto Alegre, RS',
-        bio: 'Editor de vídeo rápido. Uso Premiere + Plugins de IA para reduzir tempo de edição em 70%. Mestre em cortes virais.',
-        products: ['Mente Lendária'],
-        areas: ['Marketing'],
-        fixedSalary: '5000.00',
-        avatar: 'https://i.pravatar.cc/150?u=gabriel',
-        tags: ['Premiere', 'After Effects', 'CapCut', 'RunwayML']
-    },
-    {
-        name: 'Helena Martins',
-        role: 'Customer Success & Onboarding',
-        email: 'helena.m@mock.com',
-        phone: '(85) 92222-1008',
-        location: 'Fortaleza, CE',
-        bio: 'Amo gente. Uso IA para personalizar o atendimento e prever churn, mas o contato humano é meu diferencial.',
-        products: ['Comunidade', 'Mentoria'],
-        areas: ['Sucesso do Cliente', 'Suporte Técnico'],
-        fixedSalary: '4500.00',
-        avatar: 'https://i.pravatar.cc/150?u=helena',
-        tags: ['Atendimento', 'Zendesk', 'Empatia', 'CRM']
-    },
-    {
-        name: 'Igor Viana',
-        role: 'Tech Lead',
-        email: 'igor.viana@mock.com',
-        phone: '(61) 91111-1009',
-        location: 'Brasília, DF',
-        bio: '15 anos de XP. Lidero times técnicos. Busco implementar cultura de AI-First no desenvolvimento de software.',
-        products: ['Formação', 'Mentoria'],
-        areas: ['Produto', 'Backoffice'],
-        fixedSalary: '18000.00',
-        avatar: 'https://i.pravatar.cc/150?u=igor',
-        tags: ['Liderança', 'Arquitetura', 'Cloud', 'Mentoria']
-    },
-    {
-        name: 'Julia Pereira',
-        role: 'Growth Hacker',
-        email: 'ju.pereira@mock.com',
-        phone: '(71) 90000-1010',
-        location: 'Salvador, BA',
-        bio: 'Testar rápido, aprender rápido. Especialista em SEO e Viral Loops. Hacker de funil.',
-        products: ['80/20'],
-        areas: ['Marketing', 'Performance'],
-        fixedSalary: '9000.00',
-        avatar: 'https://i.pravatar.cc/150?u=julia',
-        tags: ['SEO', 'Growth', 'Analytics', 'Experimentação']
     }
 ];
 
