@@ -1,8 +1,26 @@
-
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+// Safe environment variable retrieval
+const getEnvVar = (viteKey: string, nextKey: string) => {
+    // 1. Try Vite import.meta.env
+    try {
+        if (import.meta && import.meta.env && import.meta.env[viteKey]) {
+            return import.meta.env[viteKey];
+        }
+    } catch (e) { /* ignore */ }
+
+    // 2. Try Node process.env (safely)
+    try {
+        if (typeof process !== 'undefined' && process.env && process.env[nextKey]) {
+            return process.env[nextKey];
+        }
+    } catch (e) { /* ignore */ }
+
+    return "";
+};
+
+const supabaseUrl = getEnvVar('VITE_SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_URL');
+const supabaseAnonKey = getEnvVar('VITE_SUPABASE_ANON_KEY', 'NEXT_PUBLIC_SUPABASE_ANON_KEY');
 
 let supabaseInstance;
 
@@ -17,7 +35,10 @@ try {
     // Fallback dummy client to prevent "White Screen of Death"
     supabaseInstance = {
         from: () => ({
-            select: async () => ({ data: null, error: { message: "Database not configured (missing env vars)" } }),
+            select: async () => ({
+                data: null,
+                error: { message: "Database not configured. Check your .env file or Vercel Environment Variables. URL or KEY is missing." }
+            }),
             insert: async () => ({ data: null, error: { message: "Database not configured (missing env vars)" } }),
             update: async () => ({ data: null, error: { message: "Database not configured (missing env vars)" } }),
             delete: async () => ({ data: null, error: { message: "Database not configured (missing env vars)" } }),

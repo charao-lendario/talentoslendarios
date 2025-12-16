@@ -42,6 +42,8 @@ interface Job {
     okr: string;
     status: 'active' | 'draft' | 'paused';
     candidates: number;
+    type?: string;
+    location?: string;
 }
 
 interface Talent {
@@ -54,7 +56,7 @@ interface Talent {
     bio: string; // "Breve apresentação"
     products: string[];
     areas: string[];
-    seniority: 'Junior' | 'Pleno' | 'Sênior';
+    seniority: string;
     fixedSalary: string; // "Pretensão salarial fixa"
     avatar: string;
     rating: number;
@@ -285,7 +287,7 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void, on
                     <a href="#mandamentos" className="hover:text-brand-gold transition-colors">10 MANDAMENTOS</a>
                     <a href="#beneficios" className="hover:text-brand-gold transition-colors">BENEFÍCIOS</a>
                 </nav>
-                <Button variant="ghost" className="text-xs font-semibold mr-4 hover:bg-transparent hover:text-brand-orange" onClick={() => setView('public-jobs')}>
+                <Button variant="ghost" className="text-xs font-semibold mr-4 hover:bg-transparent hover:text-brand-orange" onClick={onViewJobs}>
                     VAGAS DISPONÍVEIS
                 </Button>
                 <Button variant="ghost" className="text-xs text-muted-foreground hover:text-black dark:hover:text-white mr-4" onClick={onViewTalents}>
@@ -1521,6 +1523,7 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
     const [talents, setTalents] = useState<Talent[]>([]);
     const [selectedTalent, setSelectedTalent] = useState<Talent | null>(null);
     const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     // Fetch Initial Data
     useEffect(() => {
@@ -1530,7 +1533,10 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
 
     const fetchJobs = async () => {
         const { data, error } = await supabase.from('jobs').select('*');
-        if (error) console.error('Error fetching jobs:', error);
+        if (error) {
+            console.error('Error fetching jobs:', error);
+            setError(`Erro ao carregar vagas: ${error.message}`);
+        }
         else if (data) {
             // Map DB fields to UI fields if needed, currently 1:1 mostly except candidates count
             const mappedJobs = data.map((j: any) => ({
@@ -1544,7 +1550,10 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
     const fetchTalents = async () => {
         // Fetch profiles + talents
         const { data, error } = await supabase.from('talents').select('*, profile:profiles(*)');
-        if (error) console.error('Error fetching talents:', error);
+        if (error) {
+            console.error('Error fetching talents:', error);
+            setError(`Erro ao carregar talentos: ${error.message}`);
+        }
         else if (data) {
             // Map to Talent interface
             const mappedTalents: Talent[] = data.map((t: any) => ({
@@ -1765,6 +1774,16 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
                     </Button>
                 </div>
             </div>
+
+            {error && (
+                <div className="p-4 bg-destructive/10 text-destructive border border-destructive/20 rounded-lg flex items-center gap-3">
+                    <Icon name="exclamation" size="size-5" />
+                    <div>
+                        <p className="font-bold">Erro de Sistema</p>
+                        <p className="text-sm">{error}</p>
+                    </div>
+                </div>
+            )}
 
             {/* Stats Row */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
