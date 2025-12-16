@@ -3,7 +3,8 @@ import { Button } from './ui/button';
 import { Icon } from './ui/icon';
 import { Symbol } from './ui/symbol';
 import { MinimalistHero } from './ui/minimalist-hero';
-import { Instagram, Linkedin, Globe, Laptop, Zap, Users2, Palmtree, Cake, Ticket, Gamepad2, GraduationCap, Gift, Rocket } from 'lucide-react';
+import { ThemeToggle } from './ui/theme-toggle';
+import { Instagram, Linkedin, Globe, Laptop, Zap, Users2, Palmtree, Cake, Ticket, Gamepad2, GraduationCap, Gift, Rocket, Moon, Sun } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from './ui/card';
 import { Input } from './ui/input';
@@ -283,9 +284,12 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                     <a href="#mandamentos" className="hover:text-brand-gold transition-colors">10 MANDAMENTOS</a>
                     <a href="#beneficios" className="hover:text-brand-gold transition-colors">BENEFÍCIOS</a>
                 </nav>
-                <Button variant="ghost" className="text-xs text-muted-foreground hover:text-brand-gold" onClick={onViewTalents}>
+                <Button variant="ghost" className="text-xs text-muted-foreground hover:text-brand-gold mr-4" onClick={onViewTalents}>
                     AREA DO RECRUTADOR
                 </Button>
+                <div className="flex items-center">
+                    <ThemeToggle />
+                </div>
             </header>
 
             {/* HERO / INTRO SECTION */}
