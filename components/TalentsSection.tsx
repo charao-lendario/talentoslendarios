@@ -610,7 +610,31 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <Label>Pretensão Salarial Fixa (Mensal)</Label>
-                                <Input placeholder="Ex: R$ 5.000,00" />
+                                <Input
+                                    placeholder="R$ 0,00"
+                                    maxLength={18}
+                                    onChange={(e) => {
+                                        let value = e.target.value;
+                                        // Remove everything that is not a digit
+                                        value = value.replace(/\D/g, "");
+
+                                        if (value === "") {
+                                            e.target.value = "";
+                                            return;
+                                        }
+
+                                        // Convert to float (cents)
+                                        const floatValue = parseFloat(value) / 100;
+
+                                        // Format using Intl.NumberFormat for BRL
+                                        const formattedValue = new Intl.NumberFormat('pt-BR', {
+                                            style: 'currency',
+                                            currency: 'BRL'
+                                        }).format(floatValue);
+
+                                        e.target.value = formattedValue;
+                                    }}
+                                />
                             </div>
                             <div className="space-y-2">
                                 <Label>Nível de Senioridade (Auto-avaliação)</Label>
