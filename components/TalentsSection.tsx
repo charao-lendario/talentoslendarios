@@ -498,6 +498,7 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
 const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }> = ({ onCancel, onSubmit }) => {
     const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
     const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+    const [seniority, setSeniority] = useState<string>("");
     const [profileImage, setProfileImage] = useState<string | null>(null);
     const profileInputRef = useRef<HTMLInputElement>(null);
 
@@ -652,6 +653,8 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                                 <Select
                                     placeholder="Selecione..."
                                     options={SENIORITY_LEVELS}
+                                    value={seniority}
+                                    onValueChange={setSeniority}
                                 />
                             </div>
                         </div>
