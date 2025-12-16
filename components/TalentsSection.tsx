@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
 import { Button } from './ui/button';
 import { Icon } from './ui/icon';
 import { Symbol } from './ui/symbol';
@@ -495,12 +496,28 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
     </div>
 );
 
-const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }> = ({ onCancel, onSubmit }) => {
+const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: (data: any) => void }> = ({ onCancel, onSubmit }) => {
     const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
     const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
     const [seniority, setSeniority] = useState<string>("");
     const [profileImage, setProfileImage] = useState<string | null>(null);
     const profileInputRef = useRef<HTMLInputElement>(null);
+
+    // Form State
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        location: '',
+        linkedin: '',
+        bio: '',
+        salary: '',
+        functions: ''
+    });
+
+    const handleInputChange = (field: string, value: string) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
+    };
 
     const toggleProduct = (product: string) => {
         setSelectedProducts(prev =>
@@ -585,31 +602,31 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <Label>Nome Completo <span className="text-destructive">*</span></Label>
-                                <Input placeholder="Seu nome" />
+                                <Input placeholder="Seu nome" value={formData.name} onChange={e => handleInputChange('name', e.target.value)} />
                             </div>
                             <div className="space-y-2">
                                 <Label>Email <span className="text-destructive">*</span></Label>
-                                <Input placeholder="seu@email.com" type="email" />
+                                <Input placeholder="seu@email.com" type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} />
                             </div>
                             <div className="space-y-2">
                                 <Label>Telefone (WhatsApp) <span className="text-destructive">*</span></Label>
-                                <Input placeholder="(00) 00000-0000" />
+                                <Input placeholder="(00) 00000-0000" value={formData.phone} onChange={e => handleInputChange('phone', e.target.value)} />
                             </div>
                             <div className="space-y-2">
                                 <Label>Localização <span className="text-destructive">*</span></Label>
-                                <Input placeholder="Cidade - UF" />
+                                <Input placeholder="Cidade - UF" value={formData.location} onChange={e => handleInputChange('location', e.target.value)} />
                             </div>
                             <div className="space-y-2 md:col-span-2">
                                 <Label>LinkedIn <span className="text-destructive">*</span></Label>
                                 <div className="relative">
                                     <Icon name="linkedin" className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground z-10" size="size-4" />
-                                    <Input placeholder="https://linkedin.com/in/seu-perfil" className="pl-10" />
+                                    <Input placeholder="https://linkedin.com/in/seu-perfil" className="pl-10" value={formData.linkedin} onChange={e => handleInputChange('linkedin', e.target.value)} />
                                 </div>
                             </div>
                         </div>
                         <div className="space-y-2">
                             <Label>Breve Apresentação <span className="text-destructive">*</span></Label>
-                            <Textarea placeholder="Conte um pouco sobre quem é você e seus objetivos..." className="h-32" />
+                            <Textarea placeholder="Conte um pouco sobre quem é você e seus objetivos..." className="h-32" value={formData.bio} onChange={e => handleInputChange('bio', e.target.value)} />
                         </div>
                     </div>
 
@@ -625,26 +642,16 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                                 <Input
                                     placeholder="R$ 0,00"
                                     maxLength={18}
+                                    value={formData.salary}
                                     onChange={(e) => {
-                                        let value = e.target.value;
-                                        // Remove everything that is not a digit
-                                        value = value.replace(/\D/g, "");
-
+                                        let value = e.target.value.replace(/\D/g, "");
                                         if (value === "") {
-                                            e.target.value = "";
+                                            handleInputChange('salary', "");
                                             return;
                                         }
-
-                                        // Convert to float (cents)
                                         const floatValue = parseFloat(value) / 100;
-
-                                        // Format using Intl.NumberFormat for BRL
-                                        const formattedValue = new Intl.NumberFormat('pt-BR', {
-                                            style: 'currency',
-                                            currency: 'BRL'
-                                        }).format(floatValue);
-
-                                        e.target.value = formattedValue;
+                                        const formattedValue = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(floatValue);
+                                        handleInputChange('salary', formattedValue);
                                     }}
                                 />
                             </div>
@@ -661,7 +668,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
 
                         <div className="space-y-2">
                             <Label>Funções que está apto a atuar <span className="text-destructive">*</span></Label>
-                            <Textarea placeholder="Liste as funções, cargos ou papéis que você domina..." className="h-24" />
+                            <Textarea placeholder="Liste as funções, cargos ou papéis que você domina..." className="h-24" value={formData.functions} onChange={e => handleInputChange('functions', e.target.value)} />
                             <p className="text-xs text-muted-foreground">Descreva livremente suas capacidades técnicas e operacionais.</p>
                         </div>
                     </div>
@@ -730,7 +737,7 @@ const CandidateFormView: React.FC<{ onCancel: () => void, onSubmit: () => void }
                 </CardContent>
                 <CardFooter className="flex justify-end gap-4 p-8 bg-muted/10 border-t border-border">
                     <Button variant="ghost" onClick={onCancel}>Cancelar</Button>
-                    <Button className="bg-brand-orange hover:bg-brand-orange-dark text-white px-8" onClick={onSubmit}>
+                    <Button className="bg-brand-orange hover:bg-brand-orange-dark text-white px-8" onClick={() => onSubmit({ ...formData, products: selectedProducts, areas: selectedAreas, seniority, profileImage })}>
                         Finalizar Cadastro
                     </Button>
                 </CardFooter>
@@ -1276,13 +1283,122 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
         setView(initialView);
     }, [initialView]);
 
-    const [jobs, setJobs] = useState<Job[]>(INITIAL_JOBS);
+    const [jobs, setJobs] = useState<Job[]>([]);
+    const [talents, setTalents] = useState<Talent[]>([]);
     const [selectedTalent, setSelectedTalent] = useState<Talent | null>(null);
     const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
-    const handleCreateJob = (newJob: Job) => {
-        setJobs([newJob, ...jobs]);
-        setView('admin');
+    // Fetch Initial Data
+    useEffect(() => {
+        fetchJobs();
+        fetchTalents();
+    }, []);
+
+    const fetchJobs = async () => {
+        const { data, error } = await supabase.from('jobs').select('*');
+        if (error) console.error('Error fetching jobs:', error);
+        else if (data) {
+            // Map DB fields to UI fields if needed, currently 1:1 mostly except candidates count
+            const mappedJobs = data.map((j: any) => ({
+                ...j,
+                candidates: 0 // In a real app, we'd do a count query on applications
+            }));
+            setJobs(mappedJobs);
+        }
+    };
+
+    const fetchTalents = async () => {
+        // Fetch profiles + talents
+        const { data, error } = await supabase.from('talents').select('*, profile:profiles(*)');
+        if (error) console.error('Error fetching talents:', error);
+        else if (data) {
+            // Map to Talent interface
+            const mappedTalents: Talent[] = data.map((t: any) => ({
+                id: t.id,
+                name: t.profile.full_name,
+                role: t.bio ? t.bio.split('.')[0] : 'Talento', // Extracting role from bio or using generic for now if field missing
+                email: t.profile.email,
+                phone: t.phone || '',
+                location: (t.location_city ? `${t.location_city}, ${t.location_state}` : ''),
+                bio: t.bio || '',
+                products: [], // We didn't seed array fields well, or need Json parsing. Assuming empty for now or parse
+                areas: t.tags || [], // Using tags as areas
+                seniority: 'Pleno', // Default if missing
+                fixedSalary: t.hourly_rate || '',
+                avatar: t.profile.avatar_url,
+                rating: 0,
+                tags: t.tags || []
+            }));
+            setTalents(mappedTalents);
+        }
+    };
+
+    const handleCreateJob = async (newJob: Job) => {
+        const { error } = await supabase.from('jobs').insert({
+            title: newJob.title,
+            mission: newJob.mission,
+            responsibilities: newJob.responsibilities,
+            success_indicator: newJob.successIndicator,
+            okr: newJob.okr,
+            status: 'active',
+            type: 'Remoto',
+            location: 'Brasil'
+        });
+
+        if (error) {
+            console.error('Error creating job:', error);
+            alert('Erro ao criar vaga.');
+        } else {
+            fetchJobs(); // Refresh
+            setView('admin');
+        }
+    };
+
+    const handleCreateCandidate = async (data: any) => {
+        // 1. Create UUID
+        const newId = crypto.randomUUID();
+
+        // 2. Insert Profile
+        const { error: profileError } = await supabase.from('profiles').insert({
+            id: newId,
+            email: data.email,
+            full_name: data.name,
+            role: 'talent',
+            avatar_url: data.profileImage || `https://i.pravatar.cc/150?u=${newId}`
+        });
+
+        if (profileError) {
+            console.error('Error creating profile:', profileError);
+            alert('Erro ao criar perfil: ' + profileError.message);
+            return;
+        }
+
+        // 3. Insert Talent
+        // Parse location
+        const locationParts = data.location.split('-');
+        const city = locationParts[0]?.trim() || data.location;
+        const state = locationParts[1]?.trim() || '';
+
+        const { error: talentError } = await supabase.from('talents').insert({
+            id: newId,
+            phone: data.phone,
+            location_city: city,
+            location_state: state,
+            bio: data.bio + (data.functions ? `\n\nFunções: ${data.functions}` : ''),
+            hourly_rate: data.salary,
+            linkedin_url: data.linkedin,
+            tags: [...data.areas, ...data.products], // Storing areas/products in tags for now as schema support limited
+            is_verified: false
+        });
+
+        if (talentError) {
+            console.error('Error creating talent:', talentError);
+            alert('Erro ao cadastrar talento: ' + talentError.message);
+        } else {
+            alert('Cadastro realizado com sucesso!');
+            fetchTalents(); // Refresh (though only admin sees it)
+            setView('landing');
+        }
     };
 
     const handleViewTalent = (talent: Talent) => {
@@ -1398,7 +1514,7 @@ const TalentsSection: React.FC<TalentsSectionProps> = ({ initialView = 'landing'
 
                     {/* Talent List (Card Style) */}
                     <div className="space-y-4">
-                        {MOCK_TALENTS.map(talent => (
+                        {talents.map(talent => (
                             <Card key={talent.id} className="hover:border-brand-orange/50 transition-colors">
                                 <CardContent className="p-6">
                                     <div className="flex flex-col md:flex-row gap-6 items-start">
