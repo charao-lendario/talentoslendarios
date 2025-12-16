@@ -19,13 +19,13 @@ import { Button } from './components/ui/button';
 import { Symbol } from './components/ui/symbol';
 import { Icon } from './components/ui/icon';
 import { cn } from './lib/utils';
-import { 
-  Breadcrumb, 
-  BreadcrumbList, 
-  BreadcrumbItem, 
-  BreadcrumbLink, 
-  BreadcrumbSeparator, 
-  BreadcrumbPage 
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage
 } from './components/ui/breadcrumb';
 
 // --- THEME DEFINITIONS ---
@@ -91,7 +91,7 @@ const sectionHierarchy: Record<Section, { category?: string; label: string }> = 
 };
 
 const App: React.FC = () => {
-  const [currentSection, setCurrentSection] = useState<Section>(Section.CONCEPT);
+  const [currentSection, setCurrentSection] = useState<Section>(Section.TALENTS_CANDIDATE);
   const [isDark, setIsDark] = useState<boolean>(false);
   const [currentTheme, setCurrentTheme] = useState<ThemeName>('Gold');
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -117,12 +117,12 @@ const App: React.FC = () => {
   useEffect(() => {
     const theme = THEMES[currentTheme];
     const root = document.documentElement;
-    
+
     // Update CSS Variables dynamically
     root.style.setProperty('--primary', theme.primary);
     root.style.setProperty('--primary-foreground', theme.foreground);
     root.style.setProperty('--ring', theme.primary);
-    
+
     // Also update Accent to match primary in this system design
     root.style.setProperty('--accent', theme.primary);
     root.style.setProperty('--accent-foreground', theme.foreground);
@@ -139,46 +139,46 @@ const App: React.FC = () => {
         return (
           <div className="animate-fade-in space-y-12">
             <div className="py-12 md:py-24 flex flex-col justify-center items-center text-center">
-                <Badge className="mb-8">
-                    <Symbol name="infinity" className="mr-2" />
-                    Design System v4.1
-                </Badge>
-                
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-sans font-bold tracking-tight mb-6">
-                    Academia Lendár<span className="text-primary font-normal">[IA]</span>
-                </h1>
-                
-                <p className="font-serif text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mb-8 leading-relaxed px-4">
-                    Simétrico, poderoso, eterno. Oito.
-                </p>
+              <Badge className="mb-8">
+                <Symbol name="infinity" className="mr-2" />
+                Design System v4.1
+              </Badge>
 
-                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-6">
-                    <Button size="lg" className="w-full sm:w-auto" onClick={() => setCurrentSection(Section.COMPONENTS)}>
-                        Explorar Componentes <Icon name="arrow-right" className="ml-2" size="size-4" />
-                    </Button>
-                    <Button size="lg" variant="outline" className="w-full sm:w-auto" onClick={() => setCurrentSection(Section.COLORS)}>
-                        Ver Cores
-                    </Button>
-                </div>
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-sans font-bold tracking-tight mb-6">
+                Academia Lendár<span className="text-primary font-normal">[IA]</span>
+              </h1>
+
+              <p className="font-serif text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mb-8 leading-relaxed px-4">
+                Simétrico, poderoso, eterno. Oito.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-6">
+                <Button size="lg" className="w-full sm:w-auto" onClick={() => setCurrentSection(Section.COMPONENTS)}>
+                  Explorar Componentes <Icon name="arrow-right" className="ml-2" size="size-4" />
+                </Button>
+                <Button size="lg" variant="outline" className="w-full sm:w-auto" onClick={() => setCurrentSection(Section.COLORS)}>
+                  Ver Cores
+                </Button>
+              </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto px-4">
-                <div className="space-y-4 border-l-2 border-primary pl-6">
-                    <h3 className="text-2xl font-sans font-bold flex items-center gap-2">
-                        <Symbol name="infinity" className="text-primary" /> Equilíbrio
-                    </h3>
-                    <p className="font-serif text-lg text-muted-foreground leading-relaxed">
-                        O Número 8 é frequentemente associado ao equilíbrio, devido à sua simetria. Quando deitado, torna-se o símbolo do infinito.
-                    </p>
-                </div>
-                <div className="space-y-4 border-l-2 border-primary pl-6">
-                    <h3 className="text-2xl font-sans font-bold flex items-center gap-2">
-                        <Symbol name="star" className="text-primary" /> Poder
-                    </h3>
-                    <p className="font-serif text-lg text-muted-foreground leading-relaxed">
-                        Ele não termina, apenas continua. É o equilíbrio perfeito entre força e elegância.
-                    </p>
-                </div>
+              <div className="space-y-4 border-l-2 border-primary pl-6">
+                <h3 className="text-2xl font-sans font-bold flex items-center gap-2">
+                  <Symbol name="infinity" className="text-primary" /> Equilíbrio
+                </h3>
+                <p className="font-serif text-lg text-muted-foreground leading-relaxed">
+                  O Número 8 é frequentemente associado ao equilíbrio, devido à sua simetria. Quando deitado, torna-se o símbolo do infinito.
+                </p>
+              </div>
+              <div className="space-y-4 border-l-2 border-primary pl-6">
+                <h3 className="text-2xl font-sans font-bold flex items-center gap-2">
+                  <Symbol name="star" className="text-primary" /> Poder
+                </h3>
+                <p className="font-serif text-lg text-muted-foreground leading-relaxed">
+                  Ele não termina, apenas continua. É o equilíbrio perfeito entre força e elegância.
+                </p>
+              </div>
             </div>
           </div>
         );
@@ -217,21 +217,21 @@ const App: React.FC = () => {
 
   return (
     <div className="flex min-h-screen font-sans bg-background text-foreground overflow-x-hidden w-full">
-      
+
       {/* Mobile Header (Visible only on mobile) */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-card/80 backdrop-blur-md border-b border-border px-4 py-3 flex items-center justify-between transition-all w-full">
-          <div className="flex items-center gap-2">
-             <Symbol name="infinity" className="text-2xl text-primary" />
-             <span className="font-sans font-bold text-lg tracking-tight">Lendár[IA]</span>
-          </div>
-          <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(true)}>
-            <Icon name="menu-burger" size="size-5" />
-          </Button>
+        <div className="flex items-center gap-2">
+          <Symbol name="infinity" className="text-2xl text-primary" />
+          <span className="font-sans font-bold text-lg tracking-tight">Lendár[IA]</span>
+        </div>
+        <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(true)}>
+          <Icon name="menu-burger" size="size-5" />
+        </Button>
       </div>
 
-      <Sidebar 
-        currentSection={currentSection} 
-        setSection={setCurrentSection} 
+      <Sidebar
+        currentSection={currentSection}
+        setSection={setCurrentSection}
         isDark={isDark}
         toggleTheme={toggleTheme}
         isCollapsed={isSidebarCollapsed}
@@ -241,73 +241,73 @@ const App: React.FC = () => {
         isMobileOpen={isMobileMenuOpen}
         closeMobileMenu={() => setIsMobileMenuOpen(false)}
       />
-      
-      <main 
+
+      <main
         className={cn(
-            "flex-1 transition-all duration-300 w-full min-w-0 flex flex-col",
-            // Responsive Margins
-            isSidebarCollapsed ? "md:ml-20" : "md:ml-64",
-            "ml-0",
-            // Padding logic: Mobile (p-4) -> Tablet (p-8) -> Desktop (p-12 to p-24)
-            // Reduced MD padding to avoid squeezing content when sidebar is open
-            "p-4 pt-24 md:p-8 lg:p-12 xl:p-20"
+          "flex-1 transition-all duration-300 w-full min-w-0 flex flex-col",
+          // Responsive Margins
+          isSidebarCollapsed ? "md:ml-20" : "md:ml-64",
+          "ml-0",
+          // Padding logic: Mobile (p-4) -> Tablet (p-8) -> Desktop (p-12 to p-24)
+          // Reduced MD padding to avoid squeezing content when sidebar is open
+          "p-4 pt-24 md:p-8 lg:p-12 xl:p-20"
         )}
       >
         <div className="max-w-6xl mx-auto flex flex-col min-h-[calc(100vh-12rem)] w-full">
-             <div className="flex-1 w-full">
-                {/* System Breadcrumbs - Only show if NOT on Concept/Home page */}
-                {currentSection !== Section.CONCEPT && (
-                  <div className="mb-8 hidden md:block">
-                    <Breadcrumb>
-                      <BreadcrumbList>
+          <div className="flex-1 w-full">
+            {/* System Breadcrumbs - Only show if NOT on Concept/Home page */}
+            {currentSection !== Section.CONCEPT && (
+              <div className="mb-8 hidden md:block">
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink
+                        onClick={() => setCurrentSection(Section.CONCEPT)}
+                        className="flex items-center gap-2"
+                      >
+                        <Icon name="home" size="size-3" />
+                        <span className="sr-only">Home</span>
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+
+                    {currentInfo.category && (
+                      <>
                         <BreadcrumbItem>
-                          <BreadcrumbLink 
-                             onClick={() => setCurrentSection(Section.CONCEPT)} 
-                             className="flex items-center gap-2"
-                          >
-                            <Icon name="home" size="size-3" />
-                            <span className="sr-only">Home</span>
-                          </BreadcrumbLink>
+                          <span className="text-muted-foreground font-medium text-sm">{currentInfo.category}</span>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
-                        
-                        {currentInfo.category && (
-                          <>
-                            <BreadcrumbItem>
-                              <span className="text-muted-foreground font-medium text-sm">{currentInfo.category}</span>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                          </>
-                        )}
-                        
-                        <BreadcrumbItem>
-                          <BreadcrumbPage className="font-semibold text-primary">
-                            {currentInfo.label}
-                          </BreadcrumbPage>
-                        </BreadcrumbItem>
-                      </BreadcrumbList>
-                    </Breadcrumb>
-                  </div>
-                )}
+                      </>
+                    )}
 
-                {renderContent()}
-             </div>
-             
-             {/* Sticky Footer */}
-             <footer className="mt-24 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between text-xs font-serif text-muted-foreground gap-4 text-center md:text-left">
-                <div className="flex flex-col md:flex-row items-center gap-2 justify-center md:justify-start">
-                     <div className="flex items-center gap-2">
-                        <Symbol name="infinity" className="text-primary text-sm" />
-                        <span className="font-sans font-bold text-foreground">Academia Lendária</span>
-                     </div>
-                     <span className="hidden md:inline text-border">|</span>
-                     <span className="opacity-80">Design System v4.1</span>
-                </div>
-                <div className="flex items-center gap-6 justify-center md:justify-end w-full md:w-auto">
-                    <span className="hover:text-primary transition-colors cursor-pointer" onClick={() => setCurrentSection(Section.DOCS)}>Documentação</span>
-                    <span className="opacity-50">© 2025</span>
-                </div>
-             </footer>
+                    <BreadcrumbItem>
+                      <BreadcrumbPage className="font-semibold text-primary">
+                        {currentInfo.label}
+                      </BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+              </div>
+            )}
+
+            {renderContent()}
+          </div>
+
+          {/* Sticky Footer */}
+          <footer className="mt-24 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between text-xs font-serif text-muted-foreground gap-4 text-center md:text-left">
+            <div className="flex flex-col md:flex-row items-center gap-2 justify-center md:justify-start">
+              <div className="flex items-center gap-2">
+                <Symbol name="infinity" className="text-primary text-sm" />
+                <span className="font-sans font-bold text-foreground">Academia Lendária</span>
+              </div>
+              <span className="hidden md:inline text-border">|</span>
+              <span className="opacity-80">Design System v4.1</span>
+            </div>
+            <div className="flex items-center gap-6 justify-center md:justify-end w-full md:w-auto">
+              <span className="hover:text-primary transition-colors cursor-pointer" onClick={() => setCurrentSection(Section.DOCS)}>Documentação</span>
+              <span className="opacity-50">© 2025</span>
+            </div>
+          </footer>
         </div>
       </main>
     </div>
