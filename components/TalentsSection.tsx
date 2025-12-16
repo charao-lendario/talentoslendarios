@@ -378,18 +378,18 @@ const LandingView: React.FC<{ onApply: () => void, onViewTalents: () => void }> 
                         "Ética inabalável",
                         "Propósito maior"
                     ].map((item, i) => (
-                        <div key={i} className="group relative p-8 h-64 bg-zinc-900/40 border border-white/5 rounded-2xl overflow-hidden hover:border-brand-gold/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-gold/10 flex flex-col justify-between">
+                        <div key={i} className="group relative p-6 h-64 bg-zinc-900/40 border border-white/5 rounded-2xl overflow-hidden hover:border-brand-gold/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-gold/10 flex flex-col justify-between">
                             {/* Background Gradient on Hover */}
                             <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/0 to-brand-gold/0 group-hover:from-brand-gold/5 group-hover:to-transparent transition-all duration-500"></div>
 
                             {/* Number */}
-                            <span className="text-6xl font-serif font-bold text-white/5 group-hover:text-brand-gold/20 transition-colors duration-500 select-none">
+                            <span className="text-5xl md:text-6xl font-serif font-bold text-white/5 group-hover:text-brand-gold/20 transition-colors duration-500 select-none">
                                 {i + 1}
                             </span>
 
                             {/* Text */}
                             <div className="relative z-10">
-                                <h3 className="text-xl font-bold font-sans text-zinc-100 group-hover:text-brand-gold transition-colors duration-300 leading-tight">
+                                <h3 className="text-lg lg:text-base xl:text-xl font-bold font-sans text-zinc-100 group-hover:text-brand-gold transition-colors duration-300 leading-tight">
                                     {item}
                                 </h3>
                                 <div className="w-8 h-1 bg-brand-orange mt-4 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
