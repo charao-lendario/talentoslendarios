@@ -113,7 +113,7 @@ const INITIAL_JOBS: Job[] = [
     },
 ];
 
-const MOCK_TALENTS: Talent[] = [
+const MOCK_TALENTS = [
     {
         id: 't1',
         name: 'Nilson Silva',
@@ -125,40 +125,40 @@ const MOCK_TALENTS: Talent[] = [
         products: ['Formação', 'Gestor IA'],
         areas: ['Produto', 'Performance'],
         seniority: 'Pleno',
-        fixedSalary: 'R$ 8.000,00',
+        fixedSalary: '8000',
         avatar: 'https://i.pravatar.cc/150?u=nilson',
         rating: 0,
         tags: ['Agentes IA', 'Prompts', 'Automação']
     },
     {
         id: 't2',
-        name: 'Ana Clara',
+        name: 'Vitor Silva',
         role: 'Engenharia de Dados, Python Backend',
-        email: 'ana.clara@example.com',
+        email: 'vitor.silva@example.com',
         phone: '(48) 98888-8888',
         location: 'Florianópolis, SC',
-        bio: 'Focada em estruturar data lakes para LLMs e pipelines de RAG.',
+        bio: 'Focado em estruturar data lakes para LLMs e pipelines de RAG.',
         products: ['Formação', 'Comunidade'],
         areas: ['Produto', 'Backoffice'],
         seniority: 'Sênior',
-        fixedSalary: 'R$ 12.000,00',
-        avatar: 'https://i.pravatar.cc/150?u=ana',
+        fixedSalary: '12000',
+        avatar: 'https://i.pravatar.cc/150?u=vitor',
         rating: 5,
         tags: ['Python', 'SQL', 'Data Engineering']
     },
     {
         id: 't3',
-        name: 'Carlos Mendes',
+        name: 'Ana Marques',
         role: 'Copywriter & Prompt Designer',
-        email: 'carlos.m@example.com',
+        email: 'ana.marques@example.com',
         phone: '(21) 97777-7777',
         location: 'Rio de Janeiro, RJ',
-        bio: 'Copywriter sênior migrando para IA. Crio personas complexas e fluxos de conversa naturais.',
+        bio: 'Copywriter sênior migrando para IA. Cria personas complexas e fluxos de conversa naturais.',
         products: ['80/20', 'Mente Lendária'],
         areas: ['Marketing', 'Comercial'],
         seniority: 'Sênior',
-        fixedSalary: 'R$ 10.000,00',
-        avatar: 'https://i.pravatar.cc/150?u=carlos',
+        fixedSalary: '10000',
+        avatar: 'https://i.pravatar.cc/150?u=ana',
         rating: 4,
         tags: ['Copywriting', 'Storytelling', 'Prompting']
     }
